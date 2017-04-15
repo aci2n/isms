@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>SensorSimulator</groupId>
-	<artifactId>SensorSimulator</artifactId>
+	<groupId>SensorReceptor</groupId>
+	<artifactId>SensorReceptor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -15,9 +16,20 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>Records</groupId>
 			<artifactId>Records</artifactId>
@@ -25,6 +37,11 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-servlet</artifactId>
+				<version>1.19.3</version>
+			</dependency>
 			<dependency>
 				<groupId>Records</groupId>
 				<artifactId>Records</artifactId>
