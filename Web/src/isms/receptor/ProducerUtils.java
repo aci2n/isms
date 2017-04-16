@@ -1,4 +1,4 @@
-package receptor;
+package isms.receptor;
 
 import java.util.Properties;
 

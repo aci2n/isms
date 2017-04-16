@@ -1,4 +1,4 @@
-package simulator;
+package isms.sensor;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import records.RecordSerde;
-import records.SensorRecord;
+import isms.records.SensorRecord;
+import isms.records.SensorRecordSerde;
 
 public class Client {
 
@@ -18,26 +18,26 @@ public class Client {
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setRequestProperty("Accept", "text/plain");
-		
+
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.writeBytes(new RecordSerde().serialize(record));
+		out.writeBytes(SensorRecordSerde.serialize(record));
 		out.flush();
 		out.close();
-		
+
 		return connection.getResponseCode();
-	} 
-	
+	}
+
 	@SuppressWarnings("unused")
 	private String readInput(HttpURLConnection connection) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		StringBuilder sb = new StringBuilder();
 		String line = null;
-		
+
 		while ((line = in.readLine()) != null) {
 			sb.append(line);
 		}
 		in.close();
-		
+
 		return sb.toString();
 	}
 

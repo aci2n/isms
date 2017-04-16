@@ -1,4 +1,4 @@
-package simulator;
+package isms.sensor.simulator;
 
 import java.util.Random;
 import java.util.UUID;
