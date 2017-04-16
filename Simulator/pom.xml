@@ -19,14 +19,14 @@
   <dependencies>
   	<dependency>
   		<groupId>isms</groupId>
-  		<artifactId>records</artifactId>
+  		<artifactId>common</artifactId>
   	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
   		<dependency>
   			<groupId>isms</groupId>
-  			<artifactId>records</artifactId>
+  			<artifactId>common</artifactId>
   			<version>0.0.1</version>
   		</dependency>
   	</dependencies>

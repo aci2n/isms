@@ -1,4 +1,4 @@
-package api;
+package receptor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import producer.ProducerUtils;
 import records.RecordSerde;
 import records.SensorRecord;
 

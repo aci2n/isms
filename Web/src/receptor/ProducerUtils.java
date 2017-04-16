@@ -1,4 +1,4 @@
-package producer;
+package receptor;
 
 import java.util.Properties;
 
