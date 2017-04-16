@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import records.RecordSerdes;
+import records.RecordSerde;
 import records.SensorRecord;
 
 public class Client {
@@ -20,7 +20,7 @@ public class Client {
 		connection.setRequestProperty("Accept", "text/plain");
 		
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.writeBytes(new RecordSerdes().serialize(record));
+		out.writeBytes(new RecordSerde().serialize(record));
 		out.flush();
 		out.close();
 		

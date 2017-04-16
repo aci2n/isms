@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-public class RecordSerdes {
+public class RecordSerde {
 
 	public String serialize(SensorRecord record) {
 		return new Gson().toJson(record);

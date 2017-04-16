@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import records.RecordSerdes;
+import producer.ProducerUtils;
+import records.RecordSerde;
 import records.SensorRecord;
 
 @WebServlet("/api/records")
@@ -26,12 +27,13 @@ public class RecordsServlet extends HttpServlet {
 		}
 		
 		String data = sb.toString();
-		RecordSerdes serdes = new RecordSerdes();
-		SensorRecord record = serdes.deserialize(data);
+		RecordSerde serde = new RecordSerde();
+		SensorRecord record = serde.deserialize(data);
 		
 		if (record == null) {
 			response.setStatus(400);
 		} else {
+			ProducerUtils.send(data);
 			response.setStatus(200);
 		}
 	}
