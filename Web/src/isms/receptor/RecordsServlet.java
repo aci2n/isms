@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import isms.records.SensorRecordSerde;
+import isms.records.SensorRecord;
+import isms.utils.SerializationUtils;
 
 @WebServlet("/api/records")
 public class RecordsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BufferedReader reader = request.getReader();
 		String line = null;
 		StringBuilder sb = new StringBuilder();
@@ -25,14 +25,13 @@ public class RecordsServlet extends HttpServlet {
 			sb.append(line);
 		}
 
-		String data = sb.toString();
+		SensorRecord record = SerializationUtils.deserialize(sb.toString());
 
-		if (SensorRecordSerde.isValid(data)) {
-			ProducerUtils.send(data);
+		if (record != null) {
+			ProducerUtils.send(record);
 			response.setStatus(200);
 		} else {
 			response.setStatus(400);
 		}
 	}
-
 }

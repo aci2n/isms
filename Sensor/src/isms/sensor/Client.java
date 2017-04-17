@@ -8,19 +8,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import isms.records.SensorRecord;
-import isms.records.SensorRecordSerde;
+import isms.utils.Constants;
+import isms.utils.SerializationUtils;
 
 public class Client {
-
 	public int send(SensorRecord record) throws IOException {
-		HttpURLConnection connection = (HttpURLConnection) new URL(Config.ENDPOINT).openConnection();
+		HttpURLConnection connection = (HttpURLConnection) new URL(Constants.RECORDS_ENDPOINT).openConnection();
 		connection.setDoOutput(true);
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setRequestProperty("Accept", "text/plain");
 
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.writeBytes(SensorRecordSerde.serialize(record));
+		out.writeBytes(SerializationUtils.serialize(record));
 		out.flush();
 		out.close();
 
@@ -40,5 +40,4 @@ public class Client {
 
 		return sb.toString();
 	}
-
 }

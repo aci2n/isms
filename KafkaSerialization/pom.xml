@@ -2,9 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>isms</groupId>
-	<artifactId>web</artifactId>
+	<artifactId>kafka-serialization</artifactId>
 	<version>0.0.1</version>
-	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -16,45 +15,20 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>isms</groupId>
-			<artifactId>common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-clients</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>isms</groupId>
-			<artifactId>kafka-serialization</artifactId>
+			<artifactId>common</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>isms</groupId>
-				<artifactId>common</artifactId>
-				<version>0.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>3.0.1</version>
-			</dependency>
 			<dependency>
 				<groupId>org.apache.kafka</groupId>
 				<artifactId>kafka-clients</artifactId>
@@ -62,7 +36,7 @@
 			</dependency>
 			<dependency>
 				<groupId>isms</groupId>
-				<artifactId>kafka-serialization</artifactId>
+				<artifactId>common</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 		</dependencies>
