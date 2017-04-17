@@ -1,7 +1,7 @@
-package isms.utils;
+package isms.common;
 
-public class Utils {
-	public static Integer tryParseInt(String s) {
+public class SafeNumberParser {
+	public Integer parseInt(String s) {
 		Integer value = null;
 
 		try {
@@ -13,7 +13,7 @@ public class Utils {
 		return value;
 	}
 
-	public static Long tryParseLong(String s) {
+	public Long parseLong(String s) {
 		Long value = null;
 
 		try {
@@ -25,7 +25,7 @@ public class Utils {
 		return value;
 	}
 
-	public static Double tryParseDouble(String s) {
+	public Double parseDouble(String s) {
 		Double value = null;
 
 		try {
@@ -35,9 +35,5 @@ public class Utils {
 		}
 
 		return value;
-	}
-
-	public static String kafkaTopic(String ownerId) {
-		return Constants.TOPIC_PREFIX + ownerId;
 	}
 }

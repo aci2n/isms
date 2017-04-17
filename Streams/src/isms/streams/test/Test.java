@@ -9,9 +9,9 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 
+import isms.common.KafkaTopicNameGenerator;
 import isms.records.SensorRecord;
 import isms.streams.SensorRecordSerde;
-import isms.utils.Utils;
 
 public class Test {
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Test {
 		StreamsConfig config = new StreamsConfig(props);
 
 		KStreamBuilder builder = new KStreamBuilder();
-		KStream<String, SensorRecord> stream = builder.stream(Utils.kafkaTopic("avalon"));
+		KStream<String, SensorRecord> stream = builder.stream(new KafkaTopicNameGenerator().get("avalon"));
 		stream.foreach((key, record) -> {
 			System.out.println(record.key());
 		});

@@ -7,9 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import isms.common.Constants;
 import isms.records.SensorRecord;
-import isms.utils.Constants;
-import isms.utils.SerializationUtils;
 
 public class Client {
 	public int send(SensorRecord record) throws IOException {
@@ -20,7 +19,7 @@ public class Client {
 		connection.setRequestProperty("Accept", "text/plain");
 
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.writeBytes(SerializationUtils.serialize(record));
+		out.writeBytes(record.serialize());
 		out.flush();
 		out.close();
 

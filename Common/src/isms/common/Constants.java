@@ -1,4 +1,4 @@
-package isms.utils;
+package isms.common;
 
 public class Constants {
 	public static final String BOOTSTRAP_SERVERS = "localhost:9092";
