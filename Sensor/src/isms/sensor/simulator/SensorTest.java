@@ -7,7 +7,7 @@ import isms.records.SensorType;
 import isms.sensor.Client;
 import isms.sensor.Config;
 
-public class Test {
+public class SensorTest {
 
 	public static void main(String[] args) throws Exception {
 		Client client = new Client();

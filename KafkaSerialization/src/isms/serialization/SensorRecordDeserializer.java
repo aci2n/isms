@@ -7,7 +7,6 @@ import org.apache.kafka.common.serialization.Deserializer;
 import isms.records.SensorRecord;
 
 public class SensorRecordDeserializer implements Deserializer<SensorRecord> {
-
 	@Override
 	public void configure(Map<String, ?> configs, boolean isKey) {}
 
@@ -18,5 +17,4 @@ public class SensorRecordDeserializer implements Deserializer<SensorRecord> {
 
 	@Override
 	public void close() {}
-
 }

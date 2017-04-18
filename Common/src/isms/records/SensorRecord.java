@@ -58,10 +58,6 @@ public class SensorRecord {
 		this.data = data;
 	}
 
-	public String key() {
-		return sensorId + "." + type;
-	}
-
 	public String serialize() {
 		return String.join("|", getSensorId(), getOwnerId(), getType().toString(), Long.toString(getTime()), Double.toString(getData()));
 	}

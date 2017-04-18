@@ -9,11 +9,11 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 
-import isms.common.KafkaTopicNameGenerator;
+import isms.common.Constants;
 import isms.records.SensorRecord;
 import isms.streams.SensorRecordSerde;
 
-public class Test {
+public class StreamsTest {
 	public static void main(String[] args) {
 		Map<String, Object> props = new HashMap<>();
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "my-stream-processing-application");
@@ -23,9 +23,9 @@ public class Test {
 		StreamsConfig config = new StreamsConfig(props);
 
 		KStreamBuilder builder = new KStreamBuilder();
-		KStream<String, SensorRecord> stream = builder.stream(new KafkaTopicNameGenerator().get("avalon"));
+		KStream<String, SensorRecord> stream = builder.stream(Constants.TOPIC_NAME);
 		stream.foreach((key, record) -> {
-			System.out.println(record.key());
+			System.out.println(record.getSensorId());
 		});
 
 		KafkaStreams streams = new KafkaStreams(builder, config);

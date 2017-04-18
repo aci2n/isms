@@ -9,7 +9,6 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import isms.common.Constants;
-import isms.common.KafkaTopicNameGenerator;
 import isms.records.SensorRecord;
 import isms.serialization.SensorRecordSerializer;
 
@@ -30,11 +29,6 @@ public class Producer extends KafkaProducer<String, SensorRecord> {
 	}
 
 	public void send(SensorRecord record) {
-		String topic = new KafkaTopicNameGenerator().get(record.getOwnerId());
-		String key = record.key();
-		long timestamp = record.getTime();
-		ProducerRecord<String, SensorRecord> message = new ProducerRecord<String, SensorRecord>(topic, 0, timestamp, key, record);
-
-		super.send(message);
+		super.send(new ProducerRecord<>(Constants.TOPIC_NAME, null, record.getTime(), record.getOwnerId(), record));
 	}
 }
