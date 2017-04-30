@@ -1,39 +1,31 @@
 package isms.common;
 
 public class SafeNumberParser {
+	private interface NumberParser<T> {
+		public T parse(String s) throws NumberFormatException;
+	}
+	
 	public Integer parseInt(String s) {
-		Integer value = null;
-
-		try {
-			value = Integer.parseInt(s);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-
-		return value;
+		return parseNumber(s, Integer::parseInt);
 	}
 
 	public Long parseLong(String s) {
-		Long value = null;
-
-		try {
-			value = Long.parseLong(s);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-
-		return value;
+		return parseNumber(s, Long::parseLong);
 	}
 
 	public Double parseDouble(String s) {
-		Double value = null;
-
+		return parseNumber(s, Double::parseDouble);
+	}
+	
+	private <T> T parseNumber(String s, NumberParser<T> parser) {
+		T value = null;
+		
 		try {
-			value = Double.parseDouble(s);
+			value = parser.parse(s);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-
+		
 		return value;
 	}
 }
