@@ -29,6 +29,6 @@ public class IsmsProducer extends KafkaProducer<String, SensorRecord> {
 	}
 
 	public void send(SensorRecord record) {
-		super.send(new ProducerRecord<>(Constants.TOPIC_NAME, null, record.getTime(), record.getOwnerId(), record));
+		super.send(new ProducerRecord<>(Constants.SENSOR_RECORDS_TOPIC, null, record.getTime(), record.getOwnerId(), record));
 	}
 }

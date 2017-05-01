@@ -23,7 +23,7 @@ public class StreamsTest {
 		StreamsConfig config = new StreamsConfig(props);
 
 		KStreamBuilder builder = new KStreamBuilder();
-		KStream<String, SensorRecord> stream = builder.stream(Constants.TOPIC_NAME);
+		KStream<String, SensorRecord> stream = builder.stream(Constants.SENSOR_RECORDS_TOPIC);
 		stream.foreach((key, record) -> {
 			System.out.println(record.getSensorId());
 		});
