@@ -1,11 +1,11 @@
 package isms.receptor;
 
 public class ProducerLocator {
-	private static Producer instance;
+	private static IsmsProducer instance;
 
-	public Producer get() {
+	public IsmsProducer get() {
 		if (instance == null) {
-			instance = new Producer();
+			instance = new IsmsProducer();
 		}
 
 		return instance;
