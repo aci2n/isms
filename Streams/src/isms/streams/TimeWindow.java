@@ -45,7 +45,7 @@ public enum TimeWindow {
 			case YEAR:
 				date = date.withMonth(1);
 			case MONTH_OF_YEAR:
-				date = date.withDayOfYear(1);
+				date = date.withDayOfMonth(1);
 			case ALIGNED_WEEK_OF_YEAR:
 			case DAY_OF_YEAR:
 				date = date.withHour(0);
