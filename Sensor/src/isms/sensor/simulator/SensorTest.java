@@ -13,7 +13,8 @@ public class SensorTest {
 		Client client = new Client();
 
 		for (int i = 0; i < 3; i++) {
-			SensorRecord record = new SensorRecord(Config.get("sensorId"), Config.get("ownerId"), SensorType.TEMPERATURE, Instant.now().getEpochSecond(), 100.10f);
+			SensorRecord record = new SensorRecord(Config.get("sensorId"), Config.get("ownerId"),
+					SensorType.TEMPERATURE, Instant.now().getEpochSecond(), 100.10f);
 			int status = client.send(record);
 			System.out.println(status);
 		}

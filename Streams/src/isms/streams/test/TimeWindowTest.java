@@ -7,6 +7,7 @@ import java.time.temporal.TemporalUnit;
 import isms.streams.TimeWindow;
 
 public class TimeWindowTest {
+
 	public static void main(String[] args) {
 		testWindow(7, ChronoUnit.DAYS, TimeWindow.ONE_WEEK);
 		testWindow(2, ChronoUnit.DAYS, TimeWindow.ONE_WEEK);
@@ -27,6 +28,7 @@ public class TimeWindowTest {
 		long nowWindow = window.allocate(now.getEpochSecond()) / seconds;
 		long thenWindow = window.allocate(then.getEpochSecond()) / seconds;
 
-		System.out.println(window + " - Now: " + nowWindow + " - " + "Then: " + thenWindow + " - Offset: " + (thenWindow - nowWindow));
+		System.out.println(window + " - Now: " + nowWindow + " - " + "Then: " + thenWindow + " - Offset: "
+				+ (thenWindow - nowWindow));
 	}
 }

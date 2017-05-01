@@ -14,6 +14,7 @@ import isms.records.SensorRecord;
 import isms.streams.SensorRecordSerde;
 
 public class StreamsTest {
+
 	public static void main(String[] args) {
 		Map<String, Object> props = new HashMap<>();
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "my-stream-processing-application");

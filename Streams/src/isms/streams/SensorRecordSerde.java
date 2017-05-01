@@ -11,6 +11,7 @@ import isms.serialization.SensorRecordDeserializer;
 import isms.serialization.SensorRecordSerializer;
 
 public class SensorRecordSerde implements Serde<SensorRecord> {
+
 	@Override
 	public void configure(Map<String, ?> configs, boolean isKey) {}
 

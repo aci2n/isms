@@ -29,7 +29,8 @@ public enum TimeWindow {
 	}
 
 	public long allocate(long timestamp) {
-		return LocalDateTime.ofEpochSecond(timestamp, 0, ZONE_OFFSET).with(this::adjust).with(this::truncate).toEpochSecond(ZONE_OFFSET);
+		return LocalDateTime.ofEpochSecond(timestamp, 0, ZONE_OFFSET).with(this::adjust).with(this::truncate)
+				.toEpochSecond(ZONE_OFFSET);
 	}
 
 	private Temporal adjust(Temporal temporal) {
@@ -37,6 +38,13 @@ public enum TimeWindow {
 		return temporal.with(field, value - value % window);
 	}
 
+	/**
+	 * Our implementation of truncation, since the one in the LocalDateTime can
+	 * only take up to a day, and we need it to work with months and years too.
+	 * 
+	 * @param temporal
+	 * @return
+	 */
 	private Temporal truncate(Temporal temporal) {
 		if (temporal instanceof LocalDateTime) {
 			LocalDateTime date = (LocalDateTime) temporal;

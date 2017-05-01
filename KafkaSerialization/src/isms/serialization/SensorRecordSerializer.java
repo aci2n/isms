@@ -7,6 +7,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import isms.records.SensorRecord;
 
 public class SensorRecordSerializer implements Serializer<SensorRecord> {
+
 	@Override
 	public void configure(Map<String, ?> configs, boolean isKey) {}
 

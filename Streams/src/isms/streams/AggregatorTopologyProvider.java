@@ -1,9 +1,19 @@
 package isms.streams;
 
+import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
-public class AggregatorTopologyProvider extends IsmsTopologyProvider {
+import isms.common.Constants;
+import isms.records.SensorRecord;
+
+public class AggregatorTopologyProvider extends TopologyProvider {
+
 	public TopologyBuilder topology() {
-		return null;
+		KStreamBuilder builder = new KStreamBuilder();
+		KStream<String, SensorRecord> input = builder.stream(Constants.SENSOR_RECORDS_TOPIC);
+		input.to("");
+		
+		return builder;
 	}
 }

@@ -11,6 +11,7 @@ import isms.common.Constants;
 import isms.records.SensorRecord;
 
 public class Client {
+
 	public int send(SensorRecord record) throws IOException {
 		HttpURLConnection connection = (HttpURLConnection) new URL(Constants.RECORDS_ENDPOINT).openConnection();
 		connection.setDoOutput(true);

@@ -13,9 +13,11 @@ import isms.records.SensorRecord;
 
 @WebServlet("/api/records")
 public class RecordsServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		BufferedReader reader = request.getReader();
 		String line = null;
 		StringBuilder sb = new StringBuilder();

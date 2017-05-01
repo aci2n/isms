@@ -3,6 +3,7 @@ package isms.records;
 import isms.common.SafeNumberParser;
 
 public class SensorRecord {
+
 	private String sensorId;
 	private String ownerId;
 	private SensorType type;
@@ -59,7 +60,8 @@ public class SensorRecord {
 	}
 
 	public String serialize() {
-		return String.join("|", getSensorId(), getOwnerId(), getType().toString(), Long.toString(getTime()), Double.toString(getData()));
+		return String.join("|", getSensorId(), getOwnerId(), getType().toString(), Long.toString(getTime()),
+				Double.toString(getData()));
 	}
 
 	public static SensorRecord deserialize(String serialized) {

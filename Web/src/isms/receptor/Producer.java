@@ -12,12 +12,13 @@ import isms.common.Constants;
 import isms.records.SensorRecord;
 import isms.serialization.SensorRecordSerializer;
 
-public class IsmsProducer extends KafkaProducer<String, SensorRecord> {
-	public IsmsProducer(Properties properties, Serializer<String> keySerializer, Serializer<SensorRecord> valueSerializer) {
+public class Producer extends KafkaProducer<String, SensorRecord> {
+
+	public Producer(Properties properties, Serializer<String> keySerializer, Serializer<SensorRecord> valueSerializer) {
 		super(properties, keySerializer, valueSerializer);
 	}
 
-	public IsmsProducer() {
+	public Producer() {
 		this(properties(), new StringSerializer(), new SensorRecordSerializer());
 	}
 
@@ -29,6 +30,7 @@ public class IsmsProducer extends KafkaProducer<String, SensorRecord> {
 	}
 
 	public void send(SensorRecord record) {
-		super.send(new ProducerRecord<>(Constants.SENSOR_RECORDS_TOPIC, null, record.getTime(), record.getOwnerId(), record));
+		super.send(new ProducerRecord<>(Constants.SENSOR_RECORDS_TOPIC, null, record.getTime(), record.getOwnerId(),
+				record));
 	}
 }

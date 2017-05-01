@@ -9,15 +9,16 @@ import org.apache.kafka.streams.processor.TopologyBuilder;
 
 import isms.common.Constants;
 
-public class IsmsStreams extends KafkaStreams {
-	private IsmsStreams(TopologyBuilder builder, Properties properties) {
+public class Streams extends KafkaStreams {
+
+	private Streams(TopologyBuilder builder, Properties properties) {
 		super(builder, properties(properties));
 
 		setUncaughtExceptionHandler(this::uncaughtExceptionHandler);
 		Runtime.getRuntime().addShutdownHook(new Thread(super::close));
 	}
 
-	public IsmsStreams(IsmsTopologyProvider provider) {
+	public Streams(TopologyProvider provider) {
 		this(provider.topology(), provider.properties());
 	}
 
