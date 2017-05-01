@@ -3,8 +3,7 @@ package isms.streams;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalField;
-import java.time.temporal.TemporalUnit;
+import java.time.temporal.Temporal;
 
 public enum TimeWindow {
 	ONE_SECOND(ChronoField.SECOND_OF_DAY, 1),
@@ -14,27 +13,61 @@ public enum TimeWindow {
 	ONE_HOUR(ChronoField.HOUR_OF_DAY, 1),
 	TWELVE_HOURS(ChronoField.HOUR_OF_DAY, 12),
 	ONE_DAY(ChronoField.DAY_OF_YEAR, 1),
-	SEVEN_DAYS(ChronoField.DAY_OF_YEAR, 7),
+	ONE_WEEK(ChronoField.ALIGNED_WEEK_OF_YEAR, 1),
 	ONE_MONTH(ChronoField.MONTH_OF_YEAR, 1),
-	SIX_MONTHS(ChronoField.MONTH_OF_YEAR, 1),
+	SIX_MONTHS(ChronoField.MONTH_OF_YEAR, 6),
 	ONE_YEAR(ChronoField.YEAR, 1);
 
 	private static final ZoneOffset ZONE_OFFSET = ZoneOffset.UTC;
 
-	private TemporalField field;
+	private ChronoField field;
 	private long window;
 
-	private TimeWindow(TemporalField field, long window) {
+	private TimeWindow(ChronoField field, long window) {
 		this.field = field;
 		this.window = window;
 	}
 
 	public long allocate(long timestamp) {
-		LocalDateTime date = LocalDateTime.ofEpochSecond(timestamp, 0, ZONE_OFFSET);
-		TemporalUnit unit = field.getBaseUnit();
-		long value = date.get(field);
-		long allocation = date.minus(value % window, unit).truncatedTo(unit).toEpochSecond(ZONE_OFFSET);
+		return LocalDateTime.ofEpochSecond(timestamp, 0, ZONE_OFFSET).with(this::adjust).with(this::truncate).toEpochSecond(ZONE_OFFSET);
+	}
 
-		return allocation;
+	private Temporal adjust(Temporal temporal) {
+		long value = temporal.get(field);
+		return temporal.with(field, value - value % window);
+	}
+
+	private Temporal truncate(Temporal temporal) {
+		if (temporal instanceof LocalDateTime) {
+			LocalDateTime date = (LocalDateTime) temporal;
+
+			switch (field) {
+			case YEAR:
+				date = date.withMonth(1);
+			case MONTH_OF_YEAR:
+				date = date.withDayOfYear(1);
+			case ALIGNED_WEEK_OF_YEAR:
+			case DAY_OF_YEAR:
+				date = date.withHour(0);
+			case HOUR_OF_DAY:
+				date = date.withSecond(0);
+			case SECOND_OF_DAY:
+				date = date.withNano(0);
+			default:
+				break;
+			}
+
+			temporal = date;
+		}
+
+		return temporal;
+	}
+
+	public ChronoField getField() {
+		return field;
+	}
+
+	public long getWindow() {
+		return window;
 	}
 }
