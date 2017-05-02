@@ -39,36 +39,33 @@ public enum TimeWindow {
 	}
 
 	/**
-	 * Our implementation of truncation, since the one in the LocalDateTime can
-	 * only take up to a day, and we need it to work with months and years too.
+	 * LocalDateTime truncation that works with units larger than a single day.
+	 * Just need to keep in mind that any ChronoField used in a TimeWindow
+	 * instance has to be included in this method's switch statement.
 	 * 
 	 * @param temporal
-	 * @return
+	 * @return LocalDateTime instance truncated to this TimeWindow's field
 	 */
 	private Temporal truncate(Temporal temporal) {
-		if (temporal instanceof LocalDateTime) {
-			LocalDateTime date = (LocalDateTime) temporal;
+		LocalDateTime date = LocalDateTime.from(temporal);
 
-			switch (field) {
-			case YEAR:
-				date = date.withMonth(1);
-			case MONTH_OF_YEAR:
-				date = date.withDayOfMonth(1);
-			case ALIGNED_WEEK_OF_YEAR:
-			case DAY_OF_YEAR:
-				date = date.withHour(0);
-			case HOUR_OF_DAY:
-				date = date.withSecond(0);
-			case SECOND_OF_DAY:
-				date = date.withNano(0);
-			default:
-				break;
-			}
-
-			temporal = date;
+		switch (field) {
+		case YEAR:
+			date = date.withMonth(1);
+		case MONTH_OF_YEAR:
+			date = date.withDayOfMonth(1);
+		case ALIGNED_WEEK_OF_YEAR:
+		case DAY_OF_YEAR:
+			date = date.withHour(0);
+		case HOUR_OF_DAY:
+			date = date.withSecond(0);
+		case SECOND_OF_DAY:
+			date = date.withNano(0);
+		default:
+			break;
 		}
 
-		return temporal;
+		return date;
 	}
 
 	public ChronoField getField() {

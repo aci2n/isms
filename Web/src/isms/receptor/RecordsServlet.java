@@ -29,7 +29,7 @@ public class RecordsServlet extends HttpServlet {
 		SensorRecord record = SensorRecord.deserialize(sb.toString());
 
 		if (record != null) {
-			new ProducerLocator().get().send(record);
+			new ProducerProvider().get().send(record);
 			response.setStatus(200);
 		} else {
 			response.setStatus(400);

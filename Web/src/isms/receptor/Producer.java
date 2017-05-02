@@ -1,10 +1,12 @@
 package isms.receptor;
 
 import java.util.Properties;
+import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -29,8 +31,8 @@ public class Producer extends KafkaProducer<String, SensorRecord> {
 		return props;
 	}
 
-	public void send(SensorRecord record) {
-		super.send(new ProducerRecord<>(Constants.SENSOR_RECORDS_TOPIC, null, record.getTime(), record.getOwnerId(),
-				record));
+	public Future<RecordMetadata> send(SensorRecord record) {
+		return super.send(new ProducerRecord<>(Constants.SENSOR_RECORDS_TOPIC, null, record.getTime(),
+				record.getOwnerId(), record));
 	}
 }
