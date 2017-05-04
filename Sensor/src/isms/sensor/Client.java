@@ -21,7 +21,7 @@ public class Client {
 		connection.setRequestProperty("Accept", "text/plain");
 
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.writeBytes(new ObjectMapperUnchecked().writeValueAsString(record));
+		out.write(new ObjectMapperUnchecked().writeValueAsBytes(record));
 		out.flush();
 		out.close();
 

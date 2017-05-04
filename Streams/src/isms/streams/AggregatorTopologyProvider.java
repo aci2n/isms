@@ -4,10 +4,12 @@ import org.apache.kafka.streams.kstream.KGroupedStream;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.KTable;
+import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.kstream.Windowed;
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
 import isms.common.Constants;
+import isms.common.ObjectMapperUnchecked;
 import isms.models.SensorAggregationKey;
 import isms.models.SensorMetric;
 import isms.models.SensorRecord;
@@ -26,10 +28,12 @@ public class AggregatorTopologyProvider extends TopologyProvider {
 				new SensorAggregationKeySerde(), new SensorRecordSerde());
 
 		KTable<Windowed<SensorAggregationKey>, SensorMetric> aggregation = grouped.aggregate(SensorMetric::new,
-				(key, value, metric) -> metric.update(value), ChronoWindows.DEFAULT_WINDOWS[0], new SensorMetricSerde(),
+				(key, value, metric) -> metric.update(value), TimeWindows.of(1000), new SensorMetricSerde(),
 				Constants.SENSOR_AGGREGATIONS_STORE);
 
-		aggregation.print();
+		final ObjectMapperUnchecked mapper = new ObjectMapperUnchecked();
+		aggregation.foreach((windowedKey, value) -> System.out.printf("%s -> %s\r\n",
+				mapper.writeValueAsString(windowedKey.key()), mapper.writeValueAsString(value)));
 
 		return builder;
 	}

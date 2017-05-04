@@ -6,8 +6,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * I don't like having to try/catch IOExceptions all around the place,
- * especially since we don't do any IO during JSON mapping.
+ * I don't like having to catch IOExceptions all around the place, especially
+ * since we don't do any IO during JSON mapping.
  * 
  * This is just a wrapper for the ObjectMapper where these exceptions are
  * translated to unchecked ones (AssertionError in particular).

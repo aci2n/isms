@@ -7,7 +7,10 @@ public class SensorMetric {
 	private double min;
 	private double max;
 
-	public SensorMetric() {}
+	public SensorMetric() {
+		min = Long.MAX_VALUE;
+		max = Long.MIN_VALUE;
+	}
 
 	public SensorMetric update(SensorRecord record) {
 		double data = record.getData();
