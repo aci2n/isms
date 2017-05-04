@@ -21,11 +21,9 @@ public class AggregatorTopologyProvider extends TopologyProvider {
 			KGroupedStream<SensorAggregationKey, SensorRecord> grouped = input
 					.groupBy((key, value) -> new SensorAggregationKey(value.getOwnerId(), value.getType()));
 
-			KTable<Windowed<SensorAggregationKey>, SensorMetric> aggregation = grouped.aggregate(() -> {
-				return new SensorMetric();
-			}, (key, value, metric) -> {
-				return metric.update(value);
-			}, window, new SensorMetricSerde(), Constants.SENSOR_AGGREGATIONS_STORE);
+			KTable<Windowed<SensorAggregationKey>, SensorMetric> aggregation = grouped.aggregate(SensorMetric::new,
+					(key, value, metric) -> metric.update(value), window, new SensorMetricSerde(),
+					Constants.SENSOR_AGGREGATIONS_STORE);
 
 			aggregation.print();
 		}
