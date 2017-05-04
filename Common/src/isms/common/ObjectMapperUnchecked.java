@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * since we don't do any IO during JSON mapping.
  * 
  * This is just a wrapper for the ObjectMapper where these exceptions are
- * translated to unchecked ones (AssertionError in particular).
+ * translated to unchecked ones (AssertionError).
  * 
  * @author Alvaro Calace
  */

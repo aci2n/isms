@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
-public abstract class TopologyProvider {
+public abstract class TopologySupplier {
 
 	public abstract TopologyBuilder topology();
 

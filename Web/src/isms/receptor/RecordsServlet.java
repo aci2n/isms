@@ -30,7 +30,7 @@ public class RecordsServlet extends HttpServlet {
 		SensorRecord record = new ObjectMapperUnchecked().readValue(sb.toString(), SensorRecord.class);
 
 		if (record != null) {
-			new ProducerProvider().get().send(record);
+			new ProducerSupplier().get().send(record);
 			response.setStatus(200);
 		} else {
 			response.setStatus(400);

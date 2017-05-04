@@ -18,7 +18,7 @@ public class SensorTest {
 		String id = Config.get("sensorId");
 		String ownerId = Config.get("ownerId");
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 100000; i++) {
 			SensorRecord record = new SensorRecord(id, ownerId, types[i % typesCount], Instant.now().getEpochSecond(),
 					random.nextDouble() * 100 - 50);
 			int status = client.send(record);

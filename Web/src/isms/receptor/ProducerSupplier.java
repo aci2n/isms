@@ -1,6 +1,6 @@
 package isms.receptor;
 
-public class ProducerProvider {
+public class ProducerSupplier {
 
 	private static final Producer instance = new Producer();
 

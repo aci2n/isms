@@ -17,7 +17,7 @@ public class Streams extends KafkaStreams {
 		setUncaughtExceptionHandler(this::uncaughtExceptionHandler);
 	}
 
-	public Streams(TopologyProvider provider) {
+	public Streams(TopologySupplier provider) {
 		this(provider.topology(), provider.properties());
 	}
 

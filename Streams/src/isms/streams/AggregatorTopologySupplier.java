@@ -17,7 +17,7 @@ import isms.serdes.SensorAggregationKeySerde;
 import isms.serdes.SensorMetricSerde;
 import isms.serdes.SensorRecordSerde;
 
-public class AggregatorTopologyProvider extends TopologyProvider {
+public class AggregatorTopologySupplier extends TopologySupplier {
 
 	public TopologyBuilder topology() {
 		KStreamBuilder builder = new KStreamBuilder();
@@ -32,8 +32,9 @@ public class AggregatorTopologyProvider extends TopologyProvider {
 				Constants.SENSOR_AGGREGATIONS_STORE);
 
 		final ObjectMapperUnchecked mapper = new ObjectMapperUnchecked();
-		aggregation.foreach((windowedKey, value) -> System.out.printf("%s -> %s\r\n",
-				mapper.writeValueAsString(windowedKey.key()), mapper.writeValueAsString(value)));
+		aggregation.foreach(
+				(windowedKey, value) -> System.out.printf("[Window: %d] - %s -> %s\r\n", windowedKey.window().start(),
+						mapper.writeValueAsString(windowedKey.key()), mapper.writeValueAsString(value)));
 
 		return builder;
 	}
