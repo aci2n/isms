@@ -1,6 +1,6 @@
-package isms.streams;
+package isms.serdes;
 
-import isms.common.SensorMetric;
+import isms.models.SensorMetric;
 import isms.serialization.SensorMetricDeserializer;
 import isms.serialization.SensorMetricSerializer;
 

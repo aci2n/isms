@@ -1,6 +1,6 @@
-package isms.streams;
+package isms.serdes;
 
-import isms.records.SensorRecord;
+import isms.models.SensorRecord;
 import isms.serialization.SensorRecordDeserializer;
 import isms.serialization.SensorRecordSerializer;
 

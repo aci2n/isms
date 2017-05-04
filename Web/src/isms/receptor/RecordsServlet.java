@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import isms.common.GsonHelpers;
-import isms.records.SensorRecord;
+import isms.models.SensorRecord;
 
 @WebServlet("/api/records")
 public class RecordsServlet extends HttpServlet {

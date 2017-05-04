@@ -9,7 +9,7 @@ import java.net.URL;
 
 import isms.common.Constants;
 import isms.common.GsonHelpers;
-import isms.records.SensorRecord;
+import isms.models.SensorRecord;
 
 public class Client {
 

@@ -8,14 +8,13 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
 import isms.common.Constants;
+import isms.serdes.SensorRecordSerde;
 
 public class Streams extends KafkaStreams {
 
 	private Streams(TopologyBuilder builder, Properties properties) {
 		super(builder, properties(properties));
-
 		setUncaughtExceptionHandler(this::uncaughtExceptionHandler);
-		Runtime.getRuntime().addShutdownHook(new Thread(super::close));
 	}
 
 	public Streams(TopologyProvider provider) {
@@ -36,5 +35,10 @@ public class Streams extends KafkaStreams {
 
 	private void uncaughtExceptionHandler(Thread thread, Throwable throwable) {
 		throwable.printStackTrace();
+	}
+
+	public void start() {
+		super.start();
+		Runtime.getRuntime().addShutdownHook(new Thread(super::close));
 	}
 }

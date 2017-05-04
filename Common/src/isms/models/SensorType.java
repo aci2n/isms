@@ -1,4 +1,4 @@
-package isms.records;
+package isms.models;
 
 public enum SensorType {
 	TEMPERATURE,

@@ -1,6 +1,6 @@
 package isms.serialization;
 
-import isms.records.SensorRecord;
+import isms.models.SensorRecord;
 
 public class SensorRecordDeserializer extends JsonDeserializer<SensorRecord> {
 

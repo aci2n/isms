@@ -1,4 +1,4 @@
-package isms.streams;
+package isms.serdes;
 
 import java.util.Map;
 

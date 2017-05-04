@@ -11,7 +11,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import isms.common.Constants;
-import isms.records.SensorRecord;
+import isms.models.SensorRecord;
 import isms.serialization.SensorRecordSerializer;
 
 public class Producer extends KafkaProducer<String, SensorRecord> {

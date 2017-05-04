@@ -1,6 +1,4 @@
-package isms.common;
-
-import isms.records.SensorRecord;
+package isms.models;
 
 public class SensorMetric {
 

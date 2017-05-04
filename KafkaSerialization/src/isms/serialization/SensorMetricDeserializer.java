@@ -1,6 +1,6 @@
 package isms.serialization;
 
-import isms.common.SensorMetric;
+import isms.models.SensorMetric;
 
 public class SensorMetricDeserializer extends JsonDeserializer<SensorMetric> {
 

@@ -1,11 +1,9 @@
-package isms.streams;
-
-import isms.records.SensorType;
+package isms.models;
 
 public class SensorAggregationKey {
 
-	String ownerId;
-	SensorType type;
+	private String ownerId;
+	private SensorType type;
 
 	public SensorAggregationKey(String ownerId, SensorType type) {
 		this.ownerId = ownerId;

@@ -16,7 +16,8 @@ public class ChronoWindows extends Windows<TimeWindow> {
 
 	private static final ZoneOffset ZONE_OFFSET = ZoneOffset.UTC;
 	public static final List<ChronoField> ALLOWED_FIELDS = Arrays.asList(ChronoField.SECOND_OF_MINUTE,
-			ChronoField.MINUTE_OF_HOUR, ChronoField.DAY_OF_MONTH, ChronoField.MONTH_OF_YEAR, ChronoField.YEAR);
+			ChronoField.MINUTE_OF_HOUR, ChronoField.HOUR_OF_DAY, ChronoField.DAY_OF_MONTH, ChronoField.MONTH_OF_YEAR,
+			ChronoField.YEAR);
 	public static final ChronoWindows[] DEFAULT_WINDOWS = {
 			of(ChronoField.SECOND_OF_MINUTE, 1),
 			of(ChronoField.SECOND_OF_MINUTE, 10),
