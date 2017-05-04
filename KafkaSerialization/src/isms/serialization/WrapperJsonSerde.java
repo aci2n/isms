@@ -2,11 +2,11 @@ package isms.serialization;
 
 import java.util.Map;
 
-public abstract class BaseJsonSerde<T> {
+public abstract class WrapperJsonSerde<T> {
 
 	protected Class<T> clazz;
 
-	protected BaseJsonSerde(Class<T> clazz) {
+	protected WrapperJsonSerde(Class<T> clazz) {
 		this.clazz = clazz;
 	}
 

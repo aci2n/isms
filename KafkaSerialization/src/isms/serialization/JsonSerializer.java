@@ -4,7 +4,7 @@ import org.apache.kafka.common.serialization.Serializer;
 
 import isms.common.GsonHelpers;
 
-public abstract class JsonSerializer<T> extends BaseJsonSerde<T> implements Serializer<T> {
+public abstract class JsonSerializer<T> extends WrapperJsonSerde<T> implements Serializer<T> {
 
 	protected JsonSerializer(Class<T> clazz) {
 		super(clazz);
