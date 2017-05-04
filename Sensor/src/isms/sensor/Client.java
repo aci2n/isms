@@ -13,6 +13,12 @@ import isms.models.SensorRecord;
 
 public class Client {
 
+	private ObjectMapperUnchecked mapper;
+
+	public Client() {
+		this.mapper = new ObjectMapperUnchecked();
+	}
+
 	public int send(SensorRecord record) throws IOException {
 		HttpURLConnection connection = (HttpURLConnection) new URL(Constants.RECORDS_ENDPOINT).openConnection();
 		connection.setDoOutput(true);
@@ -21,7 +27,7 @@ public class Client {
 		connection.setRequestProperty("Accept", "text/plain");
 
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.write(new ObjectMapperUnchecked().writeValueAsBytes(record));
+		out.write(mapper.writeValueAsBytes(record));
 		out.flush();
 		out.close();
 

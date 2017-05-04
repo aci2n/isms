@@ -21,7 +21,7 @@ public class MethodReferenceTests {
 		public String run(String s, Locale l);
 	}
 
-	public class StringOperatorOne implements StringOperation {
+	public static class StringOperatorOne implements StringOperation {
 
 		public String run(String s) {
 			return s.toUpperCase();
@@ -36,11 +36,7 @@ public class MethodReferenceTests {
 		System.out.println(doNoArgOperation(s::toUpperCase));
 		System.out.println(doNoArgOperation(MethodReferenceTests::randomString));
 		System.out.println(doStringAndLocaleOperation(s, Locale.CANADA, String::toUpperCase));
-		System.out.println(new MethodReferenceTests().constructorMethodReference(s));
-	}
-
-	private String constructorMethodReference(String s) {
-		return doStringOperation(s, StringOperatorOne::new);
+		System.out.println(doStringOperation(s, StringOperatorOne::new));
 	}
 
 	private static String doStringOperation(String s, Supplier<StringOperation> opFactory) {
