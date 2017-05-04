@@ -16,7 +16,7 @@ public class Config {
 			try {
 				properties.load(in);
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new RuntimeException("Could not load properties from app.properties file.", e);
 			}
 		}
 	}

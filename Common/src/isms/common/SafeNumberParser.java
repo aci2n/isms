@@ -24,9 +24,7 @@ public class SafeNumberParser {
 
 		try {
 			value = parser.parse(s);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		} catch (NumberFormatException ignored) {}
 
 		return value;
 	}

@@ -5,6 +5,8 @@ public class SensorAggregationKey {
 	private String ownerId;
 	private SensorType type;
 
+	public SensorAggregationKey() {}
+
 	public SensorAggregationKey(String ownerId, SensorType type) {
 		this.ownerId = ownerId;
 		this.type = type;

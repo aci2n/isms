@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import isms.common.GsonHelpers;
+import isms.common.ObjectMapperUnchecked;
 import isms.models.SensorRecord;
 
 @WebServlet("/api/records")
@@ -27,7 +27,7 @@ public class RecordsServlet extends HttpServlet {
 			sb.append(line);
 		}
 
-		SensorRecord record = new GsonHelpers().fromJson(sb.toString(), SensorRecord.class);
+		SensorRecord record = new ObjectMapperUnchecked().readValue(sb.toString(), SensorRecord.class);
 
 		if (record != null) {
 			new ProducerProvider().get().send(record);

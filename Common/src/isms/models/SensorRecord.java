@@ -8,6 +8,8 @@ public class SensorRecord {
 	private long time;
 	private double data;
 
+	public SensorRecord() {}
+
 	public SensorRecord(String sensorId, String ownerId, SensorType type, long time, double data) {
 		super();
 		this.sensorId = sensorId;

@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import isms.common.Constants;
-import isms.common.GsonHelpers;
+import isms.common.ObjectMapperUnchecked;
 import isms.models.SensorRecord;
 
 public class Client {
@@ -21,7 +21,7 @@ public class Client {
 		connection.setRequestProperty("Accept", "text/plain");
 
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.writeBytes(new GsonHelpers().toJson(record));
+		out.writeBytes(new ObjectMapperUnchecked().writeValueAsString(record));
 		out.flush();
 		out.close();
 

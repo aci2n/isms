@@ -2,7 +2,7 @@ package isms.serialization;
 
 import org.apache.kafka.common.serialization.Deserializer;
 
-import isms.common.GsonHelpers;
+import isms.common.ObjectMapperUnchecked;
 
 public abstract class JsonDeserializer<T> extends WrapperJsonSerde<T> implements Deserializer<T> {
 
@@ -12,8 +12,7 @@ public abstract class JsonDeserializer<T> extends WrapperJsonSerde<T> implements
 
 	@Override
 	public T deserialize(String topic, byte[] data) {
-		String json = new String(data);
-		return new GsonHelpers().fromJson(json, clazz);
+		return new ObjectMapperUnchecked().readValue(data, clazz);
 	}
 
 }
