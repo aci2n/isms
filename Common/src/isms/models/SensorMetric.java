@@ -1,6 +1,6 @@
 package isms.models;
 
-public class SensorMetric {
+public class SensorMetric extends Model {
 
 	private long count;
 	private double average;
@@ -35,6 +35,13 @@ public class SensorMetric {
 
 	public double getMax() {
 		return max;
+	}
+
+	@Override
+	protected boolean strictEquals(Object o) {
+		SensorMetric other = (SensorMetric) o;
+		return count == other.getCount() && average == other.getAverage() && min == other.getMin()
+				&& max == other.getMax();
 	}
 
 }

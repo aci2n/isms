@@ -19,10 +19,16 @@ public class SensorTest {
 		String ownerId = Config.get("ownerId");
 
 		for (int i = 0; i < 100000; i++) {
-			SensorRecord record = new SensorRecord(id, ownerId, types[i % typesCount], Instant.now().getEpochSecond(),
-					random.nextDouble() * 100 - 50);
+			long timestamp = Instant.now().getEpochSecond();
+			SensorRecord record = new SensorRecord(id, ownerId, types[Math.abs(random.nextInt() % typesCount)],
+					timestamp, random.nextDouble() * 100 - 50);
 			int status = client.send(record);
-			System.out.println(status);
+			System.out.printf("[%d - %d: %d]%s", i, timestamp, status, System.lineSeparator());
+
+			if (i % 100 == 0) {
+				System.out.println("Sleeping...");
+				Thread.sleep(1000);
+			}
 		}
 	}
 

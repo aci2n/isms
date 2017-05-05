@@ -1,6 +1,6 @@
 package isms.models;
 
-public class SensorRecord {
+public class SensorRecord extends Model {
 
 	private String sensorId;
 	private String ownerId;
@@ -57,6 +57,13 @@ public class SensorRecord {
 
 	public void setData(double data) {
 		this.data = data;
+	}
+
+	@Override
+	protected boolean strictEquals(Object o) {
+		SensorRecord other = (SensorRecord) o;
+		return sensorId.equals(other.getSensorId()) && ownerId.equals(other.getOwnerId())
+				&& type.equals(other.getType()) && time == other.getTime() && data == other.getData();
 	}
 
 }

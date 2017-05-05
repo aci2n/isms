@@ -1,6 +1,6 @@
 package isms.models;
 
-public class SensorAggregationKey {
+public class SensorAggregationKey extends Model {
 
 	private String ownerId;
 	private SensorType type;
@@ -21,13 +21,9 @@ public class SensorAggregationKey {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o == null) return false;
-		if (this == o) return true;
-		if (!(o instanceof SensorAggregationKey)) return false;
+	protected boolean strictEquals(Object o) {
 		SensorAggregationKey other = (SensorAggregationKey) o;
-
-		return this.ownerId.equals(other.getOwnerId()) && this.type.equals(other.getType());
+		return ownerId.equals(other.getOwnerId()) && type.equals(other.getType());
 	}
 
 }
