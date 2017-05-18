@@ -8,6 +8,7 @@ import isms.streams.Streams;
 public class StreamsTest {
 
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		Duration[] windowDurations = {
 				Duration.ofSeconds(1),
 				Duration.ofMinutes(1),
@@ -16,9 +17,15 @@ public class StreamsTest {
 				Duration.ofDays(30),
 				Duration.ofDays(365) };
 
-		for (Duration duration : windowDurations) {
-			Streams streams = new Streams(new AggregatorTopologySupplier(duration.getSeconds()));
-			streams.start();
-		}
+		// for (Duration duration : windowDurations) {
+		// long size = duration.getSeconds();
+		// System.out.println("Launching stream with window size: " + size);
+		// Streams streams = new Streams(new AggregatorTopologySupplier(size));
+		// streams.start();
+		// }
+
+		System.out.println("Launching stream with window size: " + 10);
+		Streams streams = new Streams(new AggregatorTopologySupplier(10));
+		streams.start();
 	}
 }

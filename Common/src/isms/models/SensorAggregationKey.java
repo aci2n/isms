@@ -4,14 +4,12 @@ public class SensorAggregationKey extends Model {
 
 	private String ownerId;
 	private SensorType type;
-	private long windowSize;
 
 	public SensorAggregationKey() {}
 
-	public SensorAggregationKey(String ownerId, SensorType type, long windowSize) {
+	public SensorAggregationKey(String ownerId, SensorType type) {
 		this.ownerId = ownerId;
 		this.type = type;
-		this.windowSize = windowSize;
 	}
 
 	public String getOwnerId() {
@@ -20,10 +18,6 @@ public class SensorAggregationKey extends Model {
 
 	public SensorType getType() {
 		return type;
-	}
-
-	public long getWindowSize() {
-		return windowSize;
 	}
 
 	@Override
