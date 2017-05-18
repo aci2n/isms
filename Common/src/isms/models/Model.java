@@ -19,7 +19,7 @@ public abstract class Model {
 	}
 
 	protected boolean strictEquals(Object o) {
-		return true;
+		return false;
 	}
 
 	@Override

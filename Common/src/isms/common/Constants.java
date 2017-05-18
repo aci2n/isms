@@ -6,6 +6,5 @@ public class Constants {
 	public static final String RECORDS_ENDPOINT = "http://localhost:8080/web/api/records";
 	public static final String SENSOR_RECORDS_TOPIC = "sensor_records-v0.1";
 	public static final String SENSOR_AGGREGATOR_APPLICATION_ID = "sensor_aggregator-v0.1";
-	public static final String SENSOR_AGGREGATIONS_STORE = "sensor_aggregations-v0.1";
-	public static final String SENSOR_AGGREGATIONS_TOPIC_PREFIX = "sensor_aggregations-v0.1_";
+	public static final String SENSOR_AGGREGATIONS_STORE = "sensor_aggregations_store-v0.1";
 }
