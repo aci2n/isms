@@ -1,9 +1,10 @@
 package isms.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import isms.common.Supplier;
 
 public abstract class BaseDao {
 
@@ -12,23 +13,22 @@ public abstract class BaseDao {
 		public void apply(PreparedStatement stmt) throws SQLException;
 	}
 
-	private static final String url = "jdbc:mysql://localhost/isms?user=isms_user&password=isms&useSSL=false";
-	private Connection connection;
+	private Supplier<Connection> supplier;
 
-	protected Connection connection() throws SQLException {
-		if (connection == null) {
-			connection = DriverManager.getConnection(url);
-		}
-		return connection;
+	public void setSupplier(Supplier<Connection> supplier) {
+		this.supplier = supplier;
 	}
 
 	protected void run(String sql, PreparedStatementOperation op) {
 		PreparedStatement stmt = null;
+		Connection conn = null;
 
 		try {
 			try {
-				op.apply(stmt = connection().prepareStatement(sql));
+				conn = supplier.get();
+				op.apply(stmt = conn.prepareStatement(sql));
 			} finally {
+				if (conn != null) conn.close();
 				if (stmt != null) stmt.close();
 			}
 		} catch (SQLException e) {

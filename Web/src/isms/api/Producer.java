@@ -1,4 +1,4 @@
-package isms.receptor;
+package isms.api;
 
 import java.util.Properties;
 import java.util.concurrent.Future;
