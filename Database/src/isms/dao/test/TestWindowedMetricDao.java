@@ -1,9 +1,12 @@
 package isms.dao.test;
 
+import java.util.List;
+
 import isms.dao.WindowedMetricDao;
 import isms.models.SensorAggregationKey;
 import isms.models.SensorMetric;
 import isms.models.SensorType;
+import isms.models.WindowedMetric;
 
 public class TestWindowedMetricDao {
 
@@ -11,7 +14,10 @@ public class TestWindowedMetricDao {
 		WindowedMetricDao dao = new WindowedMetricDao();
 		SensorAggregationKey key = new SensorAggregationKey("avalon", SensorType.DUST);
 		SensorMetric metric = new SensorMetric();
-		dao.save(key, metric, 10, 1234);
+		dao.save(new WindowedMetric(key, metric, 10, 1234));
+
+		List<WindowedMetric> metrics = dao.getByOwnerAndSize("avalon", 10);
+		System.out.println(metrics.size());
 	}
 
 }

@@ -14,6 +14,7 @@ import isms.dao.WindowedMetricDao;
 import isms.models.SensorAggregationKey;
 import isms.models.SensorMetric;
 import isms.models.SensorRecord;
+import isms.models.WindowedMetric;
 import isms.serdes.SensorAggregationKeySerde;
 import isms.serdes.SensorMetricSerde;
 import isms.serdes.SensorRecordSerde;
@@ -44,8 +45,8 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 				(key, value, metric) -> metric.update(value), TimeWindows.of(windowSize), metricSerde,
 				Constants.SENSOR_AGGREGATIONS_STORE);
 
-		aggregation.foreach(
-				(windowedKey, metric) -> dao.save(windowedKey.key(), metric, windowSize, windowedKey.window().start()));
+		aggregation.foreach((windowedKey, metric) -> dao
+				.save(new WindowedMetric(windowedKey.key(), metric, windowSize, windowedKey.window().start())));
 
 		aggregation.foreach((windowedKey, value) -> System.out.printf("[Size: %d - Window: %d] - %s -> %s%s",
 				windowSize, windowedKey.window().start(), mapper.writeValueAsString(windowedKey.key()),

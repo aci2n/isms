@@ -7,6 +7,7 @@ create table WindowedMetrics (
     sensor_avg double not null,
     sensor_min double not null, 
     sensor_max double not null,
+    sensor_count bigint unsigned not null,
     
     unique index (owner_id, sensor_type, window_size, window_start)
 );

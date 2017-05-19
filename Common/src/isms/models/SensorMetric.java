@@ -12,6 +12,13 @@ public class SensorMetric extends Model {
 		max = Long.MIN_VALUE;
 	}
 
+	public SensorMetric(double average, double min, double max, long count) {
+		this.average = average;
+		this.min = min;
+		this.max = max;
+		this.count = count;
+	}
+
 	public SensorMetric update(SensorRecord record) {
 		double data = record.getData();
 		average = (average * count + data) / ++count;
