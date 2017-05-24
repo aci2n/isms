@@ -21,10 +21,6 @@
   		<groupId>isms</groupId>
   		<artifactId>common</artifactId>
   	</dependency>
-  	<dependency>
-  		<groupId>mysql</groupId>
-  		<artifactId>mysql-connector-java</artifactId>
-  	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
@@ -32,11 +28,6 @@
   			<groupId>isms</groupId>
   			<artifactId>common</artifactId>
   			<version>0.0.1</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>mysql</groupId>
-  			<artifactId>mysql-connector-java</artifactId>
-  			<version>6.0.6</version>
   		</dependency>
   	</dependencies>
   </dependencyManagement>

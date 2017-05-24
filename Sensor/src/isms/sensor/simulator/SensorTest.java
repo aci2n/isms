@@ -11,7 +11,7 @@ import isms.sensor.Config;
 public class SensorTest {
 
 	public static void main(String[] args) throws Exception {
-		Client<SensorRecord> client = new Client<>("record");
+		Client client = new Client("record");
 		Random random = new Random();
 		SensorType[] types = SensorType.values();
 		int typesCount = types.length;

@@ -15,9 +15,8 @@ public class ConnectionSupplier implements Supplier<Connection> {
 
 	private static DataSource init() {
 		PoolProperties p = new PoolProperties();
-		p.setUrl("jdbc:mysql://localhost:3306/isms");
-		p.setUsername("isms_user");
-		p.setPassword("isms");
+		p.setUrl("jdbc:mysql://localhost/isms?user=isms_user&password=isms&useSSL=false");
+		p.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
 		return new org.apache.tomcat.jdbc.pool.DataSource(p);
 	}

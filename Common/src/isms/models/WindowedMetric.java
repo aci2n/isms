@@ -7,6 +7,8 @@ public class WindowedMetric {
 	private long windowSize;
 	private long windowStart;
 
+	public WindowedMetric() {}
+
 	public WindowedMetric(SensorAggregationKey key, SensorMetric metric, long windowSize, long windowStart) {
 		this.key = key;
 		this.metric = metric;

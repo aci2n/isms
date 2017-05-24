@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Client<T> {
+public class Client {
 
 	private ObjectMapperUnchecked mapper;
 	private String url;
@@ -22,7 +22,7 @@ public class Client<T> {
 		return connection;
 	}
 
-	public int post(T value) throws IOException {
+	public int post(Object value) throws IOException {
 		HttpURLConnection connection = open();
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
@@ -31,7 +31,7 @@ public class Client<T> {
 		return connection.getResponseCode();
 	}
 
-	public T get(Class<T> clazz) throws IOException {
+	public <T> T get(Class<T> clazz) throws IOException {
 		HttpURLConnection connection = open();
 		connection.setRequestMethod("GET");
 		connection.setRequestProperty("Accept", "application/json");

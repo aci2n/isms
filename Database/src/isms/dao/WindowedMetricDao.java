@@ -11,11 +11,12 @@ import isms.models.WindowedMetric;
 
 public class WindowedMetricDao extends BaseDao {
 
-	private static final String ALL_COLS = "owner_id, sensor_type, window_size, window_start, sensor_avg, sensor_min, sensor_max, count";
+	private static final String ALL_COLS = "owner_id, sensor_type, window_size, window_start, sensor_avg, sensor_min, sensor_max, sensor_count";
 
 	public void save(WindowedMetric windowedMetric) {
 		String sql = "insert into WindowedMetrics (" + ALL_COLS + ") "
-				+ "values (?, ?, ?, ?, ?, ?, ?) on duplicate key update sensor_avg = ?, sensor_min = ?, sensor_max = ?";
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key "
+				+ "update sensor_avg = ?, sensor_min = ?, sensor_max = ?, sensor_count = ?";
 		run(sql, stmt -> {
 			SensorAggregationKey key = windowedMetric.getKey();
 			SensorMetric metric = windowedMetric.getMetric();
@@ -26,10 +27,11 @@ public class WindowedMetricDao extends BaseDao {
 			stmt.setDouble(5, metric.getAverage());
 			stmt.setDouble(6, metric.getMin());
 			stmt.setDouble(7, metric.getMax());
-			stmt.setDouble(8, metric.getAverage());
-			stmt.setDouble(9, metric.getMin());
-			stmt.setDouble(10, metric.getMax());
-			stmt.setLong(11, metric.getCount());
+			stmt.setLong(8, metric.getCount());
+			stmt.setDouble(9, metric.getAverage());
+			stmt.setDouble(10, metric.getMin());
+			stmt.setDouble(11, metric.getMax());
+			stmt.setLong(12, metric.getCount());
 			stmt.execute();
 		});
 	}

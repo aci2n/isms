@@ -29,7 +29,7 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 	}
 
 	public TopologyBuilder topology() {
-		final Client<WindowedMetric> client = new Client<>("windowed-metric");
+		final Client client = new Client("windowed-metric");
 		final SensorAggregationKeySerde aggregationKeySerde = new SensorAggregationKeySerde();
 		final SensorMetricSerde metricSerde = new SensorMetricSerde();
 		final SensorRecordSerde recordSerde = new SensorRecordSerde();
