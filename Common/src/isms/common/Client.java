@@ -22,13 +22,11 @@ public class Client {
 		return connection;
 	}
 
-	public int post(Object value) throws IOException {
+	public void post(Object value) throws IOException {
 		HttpURLConnection connection = open();
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "application/json");
 		io.write(connection.getOutputStream(), mapper.writeValueAsBytes(value));
-
-		return connection.getResponseCode();
 	}
 
 	public <T> T get(Class<T> clazz) throws IOException {

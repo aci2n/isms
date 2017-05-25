@@ -17,7 +17,7 @@ public class RecordsApi extends ApiServlet {
 		producer = new ProducerSupplier().get();
 	}
 
-	protected Object post(String in) {
+	protected SensorRecord post(String in) {
 		SensorRecord record = mapper.readValue(in, SensorRecord.class);
 
 		if (record != null) {

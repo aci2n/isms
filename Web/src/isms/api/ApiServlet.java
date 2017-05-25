@@ -26,14 +26,11 @@ public abstract class ApiServlet extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Object value = get(request.getParameterMap());
-		response(response, value);
+		response(response, get(request.getParameterMap()));
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String in = io.read(request.getInputStream());
-		Object value = post(in);
-		response(response, value);
+		response(response, post(io.read(request.getInputStream())));
 	}
 
 	protected Object get(Map<String, String[]> map) {
