@@ -9,7 +9,6 @@ import org.apache.kafka.streams.kstream.Windowed;
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
 import isms.common.Constants;
-import isms.common.Path;
 import isms.common.UnirestWrapper;
 import isms.models.SensorAggregationKey;
 import isms.models.SensorMetric;
@@ -46,7 +45,7 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 		aggregation.foreach((windowedKey, metric) -> {
 			WindowedMetric windowedMetric = new WindowedMetric(windowedKey.key(), metric, windowSize,
 					windowedKey.window().start());
-			UnirestWrapper.post(Path.WINDOWED_METRICS).body(windowedMetric).asBinaryAsync();
+			UnirestWrapper.post(Constants.API_ENDPOINT_WINDOWED_METRICS).body(windowedMetric).asBinaryAsync();
 		});
 
 		return builder;

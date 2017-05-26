@@ -1,5 +1,7 @@
 package isms.common;
 
+import org.apache.http.HttpHeaders;
+
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.GetRequest;
@@ -24,12 +26,16 @@ public final class UnirestWrapper {
 		});
 	}
 
-	public static GetRequest get(Path path) {
-		return Unirest.get(path.getFullPath());
+	private static String fullpath(String path) {
+		return Constants.API_ENDPOINT + path;
 	}
 
-	public static HttpRequestWithBody post(Path path) {
-		return Unirest.post(path.getFullPath());
+	public static GetRequest get(String path) {
+		return Unirest.get(fullpath(path));
+	}
+
+	public static HttpRequestWithBody post(String path) {
+		return Unirest.post(fullpath(path)).header(HttpHeaders.CONTENT_TYPE, "application/json");
 	}
 
 }

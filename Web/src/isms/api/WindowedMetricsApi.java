@@ -1,31 +1,27 @@
 package isms.api;
 
-import javax.servlet.annotation.WebServlet;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 
+import isms.common.Constants;
 import isms.dao.WindowedMetricDao;
 import isms.models.WindowedMetric;
 
-@WebServlet("/api/windowed-metric")
-public class WindowedMetricsApi extends ApiServlet {
-
-	private static final long serialVersionUID = 1L;
+@Path(Constants.API_ENDPOINT_WINDOWED_METRICS)
+@Consumes(MediaType.APPLICATION_JSON)
+public class WindowedMetricsApi extends BaseApi {
 
 	private WindowedMetricDao dao;
 
 	public WindowedMetricsApi() {
 		super();
-		this.dao = inject(new WindowedMetricDao());
+		this.dao = dao(new WindowedMetricDao());
 	}
 
-	protected Object post(String in) {
-		WindowedMetric metric = mapper.readValue(in, WindowedMetric.class);
-
-		if (metric != null) {
-			dao.save(metric);
-		} else {
-			status = 400;
-		}
-
-		return null;
+	@POST
+	public void save(WindowedMetric metric) {
+		dao.save(metric);
 	}
 }

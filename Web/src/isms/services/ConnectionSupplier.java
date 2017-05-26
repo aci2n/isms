@@ -1,4 +1,4 @@
-package isms.api;
+package isms.services;
 
 import java.sql.Connection;
 import java.sql.SQLException;

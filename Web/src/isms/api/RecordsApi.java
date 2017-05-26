@@ -1,14 +1,18 @@
 package isms.api;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 
+import isms.common.Constants;
 import isms.models.SensorRecord;
+import isms.services.Producer;
+import isms.services.ProducerSupplier;
 
-@WebServlet("/api/record")
-public class RecordsApi extends ApiServlet {
-
-	private static final long serialVersionUID = 1L;
+@Path(Constants.API_ENDPOINT_RECORDS)
+@Consumes(MediaType.APPLICATION_JSON)
+public class RecordsApi extends BaseApi {
 
 	private Producer producer;
 
@@ -17,16 +21,9 @@ public class RecordsApi extends ApiServlet {
 		producer = new ProducerSupplier().get();
 	}
 
-	protected SensorRecord post(String in) {
-		SensorRecord record = mapper.readValue(in, SensorRecord.class);
-
-		if (record != null) {
-			producer.send(record);
-		} else {
-			status = HttpServletResponse.SC_BAD_REQUEST;
-		}
-
-		return null;
+	@POST
+	public void send(SensorRecord record) {
+		producer.send(record);
 	}
 
 }

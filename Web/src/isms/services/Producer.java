@@ -1,4 +1,4 @@
-package isms.api;
+package isms.services;
 
 import java.util.Properties;
 import java.util.concurrent.Future;
