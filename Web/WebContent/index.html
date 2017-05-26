@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html ng-app="isms">
+<html ng-app="app">
 <head>
 <meta charset="UTF-8">
-<script src="vendor/js/angular.js"></script>
+<link href="/dist/style.css"></link>
 <title>Integrated Sensor Monitoring System</title>
 </head>
 <body>
-	<p ng-controller="HelloController">{{ msg }}</p>
 
-
-	<script>
-		(function() {
-			let app = angular.module('isms', []);
-			app.controller('HelloController', function($scope) {
-				$scope.msg = 'hello';
-			});
-		}());
-	</script>
+	<script src="/dist/output.js"></script>
+	<script src="/dist/templates.js"></script>
 </body>
 </html>

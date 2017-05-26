@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "name": "isms",
+  "private": true,
+  "scripts": {
+    "gulp": "gulp"
+  },
+  "devDependencies": {
+    "angular": "^1.6.4",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-ng-html2js": "^0.2.2",
+    "gulp-sass": "^3.1.0"
+  }
+}

@@ -1,4 +1,4 @@
 /build/
 /target/
-/.classpath
-/.project
+/node_modules/
+/WebContent/dist/
