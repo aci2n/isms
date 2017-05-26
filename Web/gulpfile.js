@@ -14,7 +14,8 @@ gulp.task('default', [ 'build' ]);
 gulp.task('build', [ 'sass', 'html2js', 'concat' ]);
 
 gulp.task('concat', function() {
-	return standardProcessor([ modules + 'angular/angular.js', app + '*.js' ],
+	return standardProcessor([ modules + 'angular/angular.js',
+			modules + 'angular-route/angular-route.js', app + '*.js' ],
 			'output.js');
 });
 
