@@ -1,7 +1,5 @@
 package isms.streams;
 
-import java.io.IOException;
-
 import org.apache.kafka.streams.kstream.KGroupedStream;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
@@ -10,8 +8,9 @@ import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.kstream.Windowed;
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
-import isms.common.Client;
 import isms.common.Constants;
+import isms.common.Path;
+import isms.common.UnirestWrapper;
 import isms.models.SensorAggregationKey;
 import isms.models.SensorMetric;
 import isms.models.SensorRecord;
@@ -29,7 +28,6 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 	}
 
 	public TopologyBuilder topology() {
-		final Client client = new Client("windowed-metric");
 		final SensorAggregationKeySerde aggregationKeySerde = new SensorAggregationKeySerde();
 		final SensorMetricSerde metricSerde = new SensorMetricSerde();
 		final SensorRecordSerde recordSerde = new SensorRecordSerde();
@@ -48,11 +46,7 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 		aggregation.foreach((windowedKey, metric) -> {
 			WindowedMetric windowedMetric = new WindowedMetric(windowedKey.key(), metric, windowSize,
 					windowedKey.window().start());
-			try {
-				client.post(windowedMetric);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			UnirestWrapper.post(Path.WINDOWED_METRICS).body(windowedMetric).asBinaryAsync();
 		});
 
 		return builder;
