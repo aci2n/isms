@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	let modules = ['ui.router', 'isms.templates', 'isms.hello'];
+	let modules = ['ui.router', 'ngResource', 'isms.templates', 'isms.hello'];
 
 	function LocationConfig($locationProvider) {
 		$locationProvider.html5Mode(true);

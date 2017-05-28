@@ -20,7 +20,7 @@
 
 	<servlet>
 		<servlet-name>APP</servlet-name>
-		<jsp-file>/index.jsp</jsp-file>
+		<jsp-file>/app.jsp</jsp-file>
 	</servlet>
 
 	<servlet-mapping>

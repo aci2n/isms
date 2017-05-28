@@ -20,6 +20,7 @@ gulp.task('concat-app', function () {
 
 gulp.task('concat-vendor', function () {
 	return standardProcessor([modules + 'angular/angular.js',
+			modules + 'angular-resource/angular-resource.js',
 			modules + 'angular-ui-router/release/angular-ui-router.js'], 'vendor.js');
 });
 
