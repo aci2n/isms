@@ -1,11 +1,12 @@
-(function (app) {
+(function () {
 	'use strict';
-	
-	function HelloController($scope) {
-		$scope.msg = 'Hello';
-	}
-	
-	HelloController.$inject = ['$scope'];
-	app.controller('HelloController', HelloController);
-}(window.app));
 
+	function HelloController() {
+		this.msg = 'Hello';
+	}
+
+	angular.module('isms.hello', []).component('hello', {
+		templateUrl: 'hello/hello.html',
+		controller: HelloController
+	});
+}());

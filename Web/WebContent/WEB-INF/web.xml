@@ -17,8 +17,19 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+
+	<servlet>
+		<servlet-name>APP</servlet-name>
+		<jsp-file>/index.jsp</jsp-file>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>REST API</servlet-name>
 		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>APP</servlet-name>
+		<url-pattern>/app/*</url-pattern>
 	</servlet-mapping>
 </web-app>

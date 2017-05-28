@@ -8,25 +8,30 @@ const sass = require('gulp-sass');
 const dist = './WebContent/dist/';
 const app = './app/**/';
 const modules = './node_modules/';
+const tomcatdist = '/home/pfi/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Web/dist';
 
-gulp.task('default', [ 'build' ]);
+gulp.task('default', ['build']);
 
-gulp.task('build', [ 'sass', 'html2js', 'concat' ]);
+gulp.task('build', ['sass', 'concat-templates', 'concat-vendor', 'concat-app']);
 
-gulp.task('concat', function() {
-	return standardProcessor([ modules + 'angular/angular.js',
-			modules + 'angular-route/angular-route.js', app + '*.js' ],
-			'output.js');
+gulp.task('concat-app', function () {
+	return standardProcessor([app + '*.js'], 'app.js');
 });
 
-gulp.task('html2js', function() {
-	return standardProcessor([ app + '*.html' ], 'templates.js', ngHtml2Js({
-		stripPrefix : 'modules/'
+gulp.task('concat-vendor', function () {
+	return standardProcessor([modules + 'angular/angular.js',
+			modules + 'angular-ui-router/release/angular-ui-router.js'], 'vendor.js');
+});
+
+gulp.task('concat-templates', function () {
+	return standardProcessor([app + '*.html'], 'templates.js', ngHtml2Js({
+		moduleName: 'isms.templates',
+		stripPrefix: 'modules/'
 	}));
 });
 
-gulp.task('sass', function() {
-	return standardProcessor([ app + '*.scss' ], 'style.css', sass());
+gulp.task('sass', function () {
+	return standardProcessor([app + '*.scss'], 'style.css', sass());
 });
 
 function standardProcessor(src, output, processor) {
@@ -34,5 +39,5 @@ function standardProcessor(src, output, processor) {
 	if (processor) {
 		line = line.pipe(processor);
 	}
-	return line.pipe(concat(output)).pipe(gulp.dest(dist));
+	return line.pipe(concat(output)).pipe(gulp.dest(dist)).pipe(gulp.dest(tomcatdist));
 }
