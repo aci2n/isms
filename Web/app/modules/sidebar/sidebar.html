@@ -1,7 +1,6 @@
-<nav>
-	<ul>
-		<li ng-repeat="menu in $ctrl.menus">
-			<a ui-sref="{{ menu.state }}" ui-sref-active="sidebar-active">{{ menu.label }}</a>
-		</li>
-	</ul>
-</nav>
+<a
+	ng-repeat="menu in $ctrl.menus"
+	ui-sref="{{ menu.state }}"
+	ui-sref-active="sidebar-active"
+	ng-click="$ctrl.menuChange(menu)"
+>{{ menu.label }}</a>

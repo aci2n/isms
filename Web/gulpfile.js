@@ -19,8 +19,11 @@ gulp.task('concat-app', function () {
 });
 
 gulp.task('concat-vendor', function () {
-	return standardProcessor([modules + 'angular/angular.js', modules + 'angular-resource/angular-resource.js',
-			modules + 'angular-ui-router/release/angular-ui-router.js'], 'vendor.js');
+	return standardProcessor([
+			modules + 'angular/angular.js',
+			modules + 'angular-ui-router/release/angular-ui-router.js',
+			modules + 'chart.js/dist/Chart.js',
+			modules + 'angular-chart.js/dist/angular-chart.js'], 'vendor.js');
 });
 
 gulp.task('concat-templates', function () {

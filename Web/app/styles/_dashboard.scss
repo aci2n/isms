@@ -1,7 +1,13 @@
+@import "constants";
+	
 dashboard {
 	display: flex;
-	
-	> ui-view {
-		padding: 10px;
-	}
+}
+
+.dashboard-main {
+	flex: 1;
+	padding: 10px;
+	display: flex;
+	flex-flow: column;
+	background: $color_porcelain;
 }

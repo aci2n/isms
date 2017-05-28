@@ -1,5 +1,9 @@
 <ul>
-	<li ng-repeat="metric in $ctrl.metrics">
-		{{ metric }}
-	</li>
+	<li ng-repeat="metric in $ctrl.metrics">{{ metric }}</li>
 </ul>
+
+<canvas
+	class="chart chart-line"
+	chart-data="$ctrl.data"
+	chart-labels="$ctrl.labels"
+></canvas>

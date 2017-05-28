@@ -2,7 +2,10 @@
 <head>
 <meta charset="UTF-8">
 <base href="/app/">
-<link href="/dist/style.css" rel="stylesheet"></link>
+<link
+	href="/dist/style.css"
+	rel="stylesheet"
+></link>
 <title>Integrated Sensor Monitoring System</title>
 </head>
 <body ng-app="isms">
