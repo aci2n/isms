@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	let modules = ['ui.router', 'ngResource', 'isms.templates', 'isms.hello'];
+	let deps = ['ui.router', 'ngResource', 'isms.templates', 'isms.dashboard'];
 
 	function LocationConfig($locationProvider) {
 		$locationProvider.html5Mode(true);
@@ -10,12 +10,16 @@
 
 	function StateConfig($stateProvider) {
 		$stateProvider.state({
-			name: 'hello',
-			component: 'hello',
-			url: '/hello'
+			name: 'dashboard',
+			component: 'dashboard',
+			url: '/dashboard'
+		}).state({
+			name: 'dashboard.windowedMetrics',
+			component: 'windowedMetrics',
+			url: '/windowed-metrics/{windowSize}'
 		});
 	}
 	StateConfig.$inject = ['$stateProvider'];
 
-	angular.module('isms', modules).config(LocationConfig).config(StateConfig);
+	angular.module('isms', deps).config(LocationConfig).config(StateConfig);
 }());
