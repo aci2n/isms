@@ -1,9 +1,9 @@
 (function () {
 	'use strict';
 
-	function UserService($resource, $q) {
-		let service = this;
-		let resource = $resource('/api/users');
+	function UserService($http, $q) {
+		const service = this;
+		const endpoint = '/api/users';
 
 		service.current = function () {
 			return $q.when({
@@ -11,7 +11,7 @@
 			});
 		};
 	}
-	UserService.$inject = ['$resource', '$q'];
+	UserService.$inject = ['$http', '$q'];
 
 	angular.module('isms.common.services', []).service('UserService', UserService);
 }());

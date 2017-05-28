@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	let deps = ['ui.router', 'ngResource', 'isms.templates', 'isms.common', 'isms.dashboard'];
+	const deps = ['ui.router', 'isms.templates', 'isms.common', 'isms.dashboard', 'isms.sidebar', 'isms.windowedMetrics'];
 
 	function LocationConfig($locationProvider) {
 		$locationProvider.html5Mode(true);

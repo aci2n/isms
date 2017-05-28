@@ -1,0 +1,7 @@
+dashboard {
+	display: flex;
+	
+	> ui-view {
+		padding: 10px;
+	}
+}

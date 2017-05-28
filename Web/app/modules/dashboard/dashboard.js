@@ -1,21 +1,18 @@
 (function () {
 	'use strict';
 
-	let deps = ['isms.sidebar', 'isms.windowedMetrics'];
-	
-	function DashboardController($timeout) {
-		let ctrl = this;
-		$timeout(() => {
-			ctrl.menus = [{
-				state: 'windowedMetrics',
-				classSuffix: 'windowed-metrics',
-				label: 'Windowed Metrics'
-			}];
-		}, 1000);
+	function DashboardController($timeout, MenusService) {
+		const ctrl = this;
+		
+		ctrl.$onInit = function () {
+			MenusService.all().then(menus => {
+				ctrl.menus = menus;
+			});
+		};
 	}
-	DashboardController.$inject = ['$timeout'];
+	DashboardController.$inject = ['$timeout', 'MenusService'];
 
-	angular.module('isms.dashboard', deps).component('dashboard', {
+	angular.module('isms.dashboard', ['isms.dashboard.services']).component('dashboard', {
 		templateUrl: 'dashboard/dashboard.html',
 		controller: DashboardController
 	});

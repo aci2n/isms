@@ -2,21 +2,19 @@
 	'use strict';
 
 	function WindowedMetricsController() {
-		let ctrl = this;
+		const ctrl = this;
 	}
 
-	function WindowedMetricsDetailsController(UserService, WindowedMetricsService) {
-		let ctrl = this;
+	function WindowedMetricsDetailsController(WindowedMetricsService) {
+		const ctrl = this;
 		
 		ctrl.$onInit = function() {
-			UserService.current().then(user => {
-				WindowedMetricsService.getByOwnerAndWindowSize(user.id, ctrl.windowSize, data => {
-					ctrl.metrics = data;
-				});
+			WindowedMetricsService.getByWindowSize(ctrl.windowSize).then(data => {
+				ctrl.metrics = data;
 			});
 		};
 	}
-	WindowedMetricsDetailsController.$inject = ['UserService', 'WindowedMetricsService'];
+	WindowedMetricsDetailsController.$inject = ['WindowedMetricsService'];
 	
 	angular.module('isms.windowedMetrics', ['isms.windowedMetrics.services']).component('windowedMetrics', {
 		templateUrl: 'windowed-metrics/windowed-metrics.html',

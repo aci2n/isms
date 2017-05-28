@@ -1,15 +1,19 @@
 (function () {
 	'use strict';
 
-	function WindowedMetricsService($resource) {
-		let service = this;
-		let resource = $resource('/api/windowed-metrics/:ownerId/:windowSize');
+	function WindowedMetricsService($http, UserService) {
+		const service = this;
+		const endpoint = '/api/windowed-metrics';
 		
-		service.getByOwnerAndWindowSize = function (ownerId, windowSize, cb) {
-			return resource.query({ownerId, windowSize}, cb);
+		service.getByOwnerAndWindowSize = function (ownerId, windowSize) {
+			return $http.get(endpoint + '/' + ownerId + '/' + windowSize);
+		};
+		
+		service.getByWindowSize = function (windowSize) {
+			return UserService.current().then(user => service.getByOwnerAndWindowSize(user.id, windowSize));
 		};
 	}
-	WindowedMetricsService.$inject = ['$resource'];
+	WindowedMetricsService.$inject = ['$http', 'UserService'];
 
 	angular.module('isms.windowedMetrics.services', []).service('WindowedMetricsService',
 			WindowedMetricsService);

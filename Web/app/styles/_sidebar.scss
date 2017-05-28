@@ -1,0 +1,31 @@
+@import "constants";
+	
+sidebar {
+	nav {
+		height: 100%;
+		padding: 20px 0;
+		background: $color_ebony_clay;
+		
+		ul {
+		    list-style: none;
+		    padding: 0;
+	    	margin: 0;
+	    	
+	    	a {
+	    		color: $color_white_pure;
+	    		display: block;
+	    		padding: 10px;
+	    		text-transform: uppercase;
+	    		text-decoration: none;
+	    		
+	    		&:visited {
+    				color: $color_white_pure;
+	    		}
+	    	
+	    		&:hover {
+	    			background: $color_steel_blue;
+	    		}
+			}
+	    }
+   }
+}

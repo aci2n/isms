@@ -4,7 +4,6 @@
   "private": true,
   "devDependencies": {
     "angular": "^1.6.4",
-    "angular-resource": "^1.6.4",
     "angular-ui-router": "^1.0.3",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
