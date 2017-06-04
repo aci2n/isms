@@ -8,9 +8,10 @@
 			ctrl.onMenuChange(menu);
 		};
 	}
+	SidebarController.$inject = [];
 
-	angular.module('isms.sidebar', []).component('sidebar', {
-		templateUrl: 'sidebar/sidebar.html',
+	angular.module('isms.sidebar').component('sidebar', {
+		templateUrl: 'sidebar/sidebar.component.html',
 		controller: SidebarController,
 		bindings: {
 			menus: '<',

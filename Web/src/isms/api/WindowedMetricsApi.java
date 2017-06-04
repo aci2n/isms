@@ -37,4 +37,11 @@ public class WindowedMetricsApi extends BaseApi {
 			@PathParam("windowSize") long windowSize) {
 		return dao.getByOwnerAndSize(ownerId, windowSize);
 	}
+
+	@GET
+	@Path("/sizes")
+	public long[] getAvailableSizes() {
+		long[] sizes = { 10 };
+		return sizes;
+	}
 }

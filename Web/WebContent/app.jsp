@@ -4,8 +4,7 @@
 <base href="/app/">
 <link
 	href="/dist/style.css"
-	rel="stylesheet"
-></link>
+	rel="stylesheet"></link>
 <title>Integrated Sensor Monitoring System</title>
 </head>
 <body ng-app="isms">

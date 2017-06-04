@@ -17,5 +17,5 @@
 	}
 	MenusService.$inject = ['$http', '$q'];
 
-	angular.module('isms.dashboard.services', []).service('MenusService', MenusService);
+	angular.module('isms.dashboard').service('MenusService', MenusService);
 }());

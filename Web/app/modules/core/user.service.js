@@ -13,5 +13,5 @@
 	}
 	UserService.$inject = ['$http', '$q'];
 
-	angular.module('isms.common.services', []).service('UserService', UserService);
+	angular.module('isms.core').service('UserService', UserService);
 }());

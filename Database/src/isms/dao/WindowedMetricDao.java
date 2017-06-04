@@ -55,7 +55,7 @@ public class WindowedMetricDao extends BaseDao {
 					long count = r.getLong(8);
 					SensorAggregationKey key = new SensorAggregationKey(id, type);
 					SensorMetric metric = new SensorMetric(avg, min, max, count);
-					WindowedMetric windowedMetric = new WindowedMetric(key, metric, start, sz);
+					WindowedMetric windowedMetric = new WindowedMetric(key, metric, sz, start);
 					windowedMetrics.add(windowedMetric);
 				}
 				r.close();

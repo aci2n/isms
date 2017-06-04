@@ -12,8 +12,8 @@
 	}
 	DashboardController.$inject = ['$timeout', 'MenusService'];
 
-	angular.module('isms.dashboard', ['isms.dashboard.services']).component('dashboard', {
-		templateUrl: 'dashboard/dashboard.html',
+	angular.module('isms.dashboard').component('dashboard', {
+		templateUrl: 'dashboard/dashboard.component.html',
 		controller: DashboardController
 	});
 }());

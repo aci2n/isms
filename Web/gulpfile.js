@@ -6,7 +6,7 @@ const ngHtml2Js = require("gulp-ng-html2js");
 const sass = require('gulp-sass');
 
 const dist = './WebContent/dist/';
-const app = './app/**/';
+const app = './app/';
 const modules = './node_modules/';
 const tomcatdist = '/home/pfi/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Web/dist';
 
@@ -15,7 +15,7 @@ gulp.task('default', ['build']);
 gulp.task('build', ['sass', 'concat-templates', 'concat-vendor', 'concat-app']);
 
 gulp.task('concat-app', function () {
-	return standardProcessor([app + '*.js'], 'app.js');
+	return standardProcessor([app + '**/*.module.js', app + '**/*.js'], 'app.js');
 });
 
 gulp.task('concat-vendor', function () {
@@ -27,14 +27,14 @@ gulp.task('concat-vendor', function () {
 });
 
 gulp.task('concat-templates', function () {
-	return standardProcessor([app + '*.html'], 'templates.js', ngHtml2Js({
+	return standardProcessor([app + '**/*.html'], 'templates.js', ngHtml2Js({
 		moduleName: 'isms.templates',
 		stripPrefix: 'modules/'
 	}));
 });
 
 gulp.task('sass', function () {
-	return standardProcessor(['./app/styles/main.scss'], 'style.css', sass());
+	return standardProcessor([app + 'styles/main.scss'], 'style.css', sass());
 });
 
 function standardProcessor(src, output, processor) {
