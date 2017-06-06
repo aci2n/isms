@@ -6,7 +6,7 @@
 
         class ServiceBase {
             constructor(endpoint) {
-                this.endpoint = '/api/' + endpoint;
+                this.endpoint = `/api/${endpoint}/`;
             }
 
             get(path = '') {
@@ -14,7 +14,7 @@
             }
 
             post(path = '', data = null) {
-                return $http.post(this.endpoint + path);
+                return $http.post(this.endpoint + path, data);
             }
         }
     }
