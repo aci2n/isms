@@ -1,0 +1,12 @@
+<select
+	ng-model="monitorWindowVm.currentDataset"
+	ng-options="type as type for (type, data) in monitorWindowVm.datasets"
+	ng-change="monitorWindowVm.setCurrentDataset(monitorWindowVm.currentDataset)">
+</select>
+
+<figure>
+	<canvas
+		class="chart chart-line"
+		chart-data="monitorWindowVm.chart.data"
+		chart-options="monitorWindowVm.chart.options"></canvas>
+</figure>

@@ -1,0 +1,5 @@
+<a
+	ng-repeat="(state, details) in sidebarVm.items"
+	ui-sref="{{ state }}"
+	ui-sref-active="sidebar-active"
+	ng-click="sidebarVm.itemSelect(state, details)">{{ details.label }}</a>

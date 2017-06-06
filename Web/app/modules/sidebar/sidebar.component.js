@@ -1,21 +1,22 @@
 (function () {
 	'use strict';
 	
-	function SidebarController() {
-		const ctrl = this;
-		
-		ctrl.menuChange = function (menu) {
-			ctrl.onMenuChange(menu);
-		};
+	class SidebarController {
+		itemSelect(state, details) {
+			this.onItemSelect({ state, details });
+		}
 	}
 	SidebarController.$inject = [];
 
-	angular.module('isms.sidebar').component('sidebar', {
-		templateUrl: 'sidebar/sidebar.component.html',
-		controller: SidebarController,
-		bindings: {
-			menus: '<',
-			onMenuChange: '&'
-		}
-	});
+	const component = {
+        templateUrl: 'sidebar/sidebar.html',
+        controller: SidebarController,
+        controllerAs: 'sidebarVm',
+        bindings: {
+            items: '<',
+            onItemSelect: '&'
+        }
+    };
+
+	angular.module('isms.sidebar').component('sidebar', component);
 }());
