@@ -4,8 +4,11 @@
     function Config($stateProvider) {
         $stateProvider.state({
             name: 'dashboard.monitor.window',
-            url: '/window',
-            component: 'monitorWindow'
+            url: '/{windowSize}',
+            component: 'monitorWindow',
+            resolve: {
+                windowSize: ['$stateParams', $stateParams => $stateParams.windowSize]
+            }
         });
     }
     Config.$inject = ['$stateProvider'];

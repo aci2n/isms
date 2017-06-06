@@ -2,59 +2,26 @@
 	'use strict';
 
 	class MonitorWindowController {
-	    constructor(Monitor, capitalizeFilter) {
+	    constructor(Monitor, $state) {
 	        this.Monitor = Monitor;
-	        this.capitalizeFilter = capitalizeFilter;
+	        this.$state = $state;
         }
 
-		loadDatasets() {
-			this.Monitor.forWindowSize(this.windowSize).then(response => {
-				this.datasets = this.getDatasets(response.data);
-			});
-		}
-		
-		getDatasets(data) {
-			const datasets = data.reduce((prev, curr) => {
-				let type = curr.key.type;
-				let point = { x: curr.windowStart, y: curr.metric.average };
-				
-				if (!prev[type]) {
-					prev[type] = [];
-				}
-				prev[type].push(point);
-				
-				return prev;
-			}, {});
-			
-			return datasets;
-		}
-		
-		setCurrentDataset(type) {
-            this.chart.data = this.datasets[type];
-            this.chart.options.label = this.capitalizeFilter(type);
-		}
+        setState(type) {
+	        this.$state.go('dashboard.monitor.window.type', { windowSize: this.windowSize, type });
+        }
 
-		defaultChart() {
-            return {
-                data: [],
-                    options: {
-                label: '',
-                    scales: {
-                        xAxes: [{
-                            type: 'linear',
-                            position: 'bottom'
-                        }]
-                    }
-                }
-            };
+        loadTypes() {
+	        this.Monitor.types().then(response => {
+	            this.types = response.data;
+            });
         }
 
 		$onInit() {
-			this.chart = this.defaultChart();
-			this.loadDatasets();
+			this.loadTypes();
 		}
 	}
-	MonitorWindowController.$inject = ['Monitor', 'capitalizeFilter'];
+	MonitorWindowController.$inject = ['Monitor', '$state'];
 
 	const component = {
         templateUrl: 'dashboard/monitor/window/monitor-window.html',

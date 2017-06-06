@@ -1,6 +1,6 @@
 <h2>Windowed Metrics</h2>
 <select
 	ng-model="monitorVm.currentWindowSize"
-	ng-options="size for size in monitorVm.availableWindowSizes"
+	ng-options="size in monitorVm.availableWindowSizes"
 	ng-change="monitorVm.setState(monitorVm.currentWindowSize)"></select>
 <ui-view></ui-view>

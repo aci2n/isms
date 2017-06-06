@@ -3,9 +3,10 @@
 	"name": "isms",
 	"private": true,
 	"devDependencies": {
+		"@uirouter/angularjs": "^1.0.3",
 		"angular": "^1.6.4",
 		"angular-chart.js": "^1.1.1",
-		"@uirouter/angularjs": "^1.0.3",
+		"angular-websocket": "^2.0.1",
 		"chart.js": "^2.6.0",
 		"gulp": "^3.9.1",
 		"gulp-concat": "^2.6.1",

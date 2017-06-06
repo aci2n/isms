@@ -23,7 +23,8 @@ gulp.task('concat-vendor', function () {
 			modules + 'angular/angular.js',
 			modules + 'angular-ui-router/release/angular-ui-router.js',
 			modules + 'chart.js/dist/Chart.js',
-			modules + 'angular-chart.js/dist/angular-chart.js'], 'vendor.js');
+			modules + 'angular-chart.js/dist/angular-chart.js',
+            modules + 'angular-websocket/dist/angular-websocket.js'], 'vendor.js');
 });
 
 gulp.task('concat-templates', function () {
