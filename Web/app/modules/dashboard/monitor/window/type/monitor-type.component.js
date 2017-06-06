@@ -12,8 +12,8 @@
 				return (this.chart.data = this.chart.data.concat(points));
 			});
 
-			if (resource.shouldClose === true) {
-			    this.liberator = resource.handle.close;
+			if (resource.free !== false) {
+			    this.free = resource.free;
             }
 		}
 
@@ -38,7 +38,7 @@
 		}
 
 		$onDestroy() {
-	        this.liberator && this.liberator();
+	        this.free && this.free();
         }
 	}
 	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter'];

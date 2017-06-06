@@ -20,12 +20,13 @@
                 if (windowSize !== 0) {
                     resource = {
                         handle: super.get(`/${windowSize}/${type}`).then(onNormalizedMessage),
-                        shouldClose: false
+                        free: false
                     };
                 } else {
+                    const ws = this.openSocket(type, onNormalizedMessage);
                     resource = {
-                        handle: this.openSocket(type, onNormalizedMessage),
-                        shouldClose: true
+                        handle: ws,
+                        free: ws.close
                     };
                 }
 
