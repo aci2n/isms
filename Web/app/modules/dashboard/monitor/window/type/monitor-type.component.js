@@ -2,9 +2,10 @@
 	'use strict';
 
 	class MonitorTypeController {
-	    constructor(Monitor, capitalizeFilter) {
+	    constructor(Monitor, capitalizeFilter, dateFilter) {
 	        this.Monitor = Monitor;
 	        this.capitalizeFilter = capitalizeFilter;
+	        this.dateFilter = dateFilter;
         }
 
 		loadDataset(windowSize, type) {
@@ -12,12 +13,15 @@
 				return (this.chart.data = this.chart.data.concat(points));
 			});
 
-			if (resource.free !== false) {
+			if (angular.isFunction(resource.free)) {
 			    this.free = resource.free;
             }
 		}
 
 		defaultChart(label) {
+			// Value comes as a UNIX timestamp (seconds), js Date takes millis.
+			const tick = value => this.dateFilter(value * 1000, 'dd-mm-yyyy hh:mm:ss');
+			
             return {
                 data: [],
                 options: {
@@ -25,9 +29,19 @@
                     scales: {
                         xAxes: [{
                             type: 'linear',
-                            position: 'bottom'
+                            position: 'bottom',
+                            ticks: {
+                                callback: tick
+                            }
                         }]
-                    }
+                    },
+                    animation: {
+                        duration: 0
+                    },
+                    hover: {
+                        animationDuration: 0
+                    },
+                    responsiveAnimationDuration: 0
                 }
             };
         }
@@ -43,7 +57,7 @@
 	        }
         }
 	}
-	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter'];
+	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter', 'dateFilter'];
 
 	const component = {
         templateUrl: 'dashboard/monitor/window/type/monitor-type.html',

@@ -1,6 +1,6 @@
 package isms.api.ws;
 
-import java.io.EOFException;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,7 +37,7 @@ public class MonitorWsApi extends BaseApi {
 		while (root.getCause() != null && count++ < 20) {
 			root = root.getCause();
 		}
-		if (root instanceof EOFException) {
+		if (root instanceof IOException) {
 			// ignore, assume client ended connection
 		} else {
 			throw t;
