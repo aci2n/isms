@@ -16,7 +16,7 @@ public class TestWindowedMetricDao {
 		SensorMetric metric = new SensorMetric();
 		dao.save(new WindowedMetric(key, metric, 10, 1234));
 
-		List<WindowedMetric> metrics = dao.getByOwnerAndSize("avalon", 10);
+		List<WindowedMetric> metrics = dao.getByOwnerAndSizeAndType("avalon", 10, SensorType.DUST.toString());
 		System.out.println(metrics.size());
 	}
 

@@ -16,7 +16,7 @@ import isms.models.SensorType;
 import isms.models.WindowedMetric;
 import isms.views.WindowSizeOption;
 
-@Path(Constants.API_MONITOR)
+@Path(Constants.API_ENDPOINT_MONITOR)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class MonitorApi extends BaseApi {

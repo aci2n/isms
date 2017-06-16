@@ -4,7 +4,6 @@ import java.util.Properties;
 import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.Serializer;
@@ -20,15 +19,8 @@ public class Producer extends KafkaProducer<String, SensorRecord> {
 		super(properties, keySerializer, valueSerializer);
 	}
 
-	public Producer() {
-		this(properties(), new StringSerializer(), new SensorRecordSerializer());
-	}
-
-	private static Properties properties() {
-		Properties props = new Properties();
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.BOOTSTRAP_SERVERS);
-
-		return props;
+	public Producer(Properties properties) {
+		this(properties, new StringSerializer(), new SensorRecordSerializer());
 	}
 
 	public Future<RecordMetadata> send(SensorRecord record) {

@@ -2,13 +2,15 @@
 	'use strict';
 
     class Monitor {
-        constructor($http) {
+        constructor($http, $websocket, $window) {
         	this.$http = $http;
+        	this.$websocket = $websocket;
             this.endpoint = '/api/monitor';
-            this.wsEndpoint = 'ws://localhost/ws/monitor/';
+            this.wsEndpoint = `ws://${$window.location.host}/api/ws/monitor`;
         }
 
         forWindowAndType(windowSize, type, onMessage) {
+        	windowSize = Number.parseInt(windowSize, 10);
             let resource = null;
 
             const onNormalizedMessage = message => onMessage(this.normalizeMessage(message));
@@ -30,13 +32,35 @@
         }
 
         normalizeMessage(message) {
-            return message.data.map(item => {
-                return { x: item.windowStart, y: item.metric.average };
-            });
+        	let data = message.data;
+        	
+        	if (angular.isString(data)) {
+        		data = angular.fromJson(message.data);
+        	} 
+        	
+        	if (angular.isArray(data)) {
+	            data = data.map(item => {
+	            	const point = {};
+	            	
+	            	if (item.metric) {
+	            		point.x = item.windowStart;
+	            		point.y = item.metric.average;
+	            	} else if (item.data) {
+	            		point.x = item.time;
+	            		point.y = item.data;
+	            	}
+	            	
+	                return point;
+	            });
+        	} else {
+        		data = [];
+        	}
+        	
+        	return data;
         }
 
         openSocket(type, onMessage) {
-            const ws = $websocket(this.wsEndpoint + 'type');
+            const ws = this.$websocket(`${this.wsEndpoint}`);
             ws.onMessage(onMessage);
 
             return ws;
@@ -50,7 +74,7 @@
             return this.$http.get(`${this.endpoint}/types`);
         }
     }
-    Monitor.$inject = ['$http', '$websocket'];
+    Monitor.$inject = ['$http', '$websocket', '$window'];
 
 	angular.module('isms.dashboard').service('Monitor', Monitor);
 }());
