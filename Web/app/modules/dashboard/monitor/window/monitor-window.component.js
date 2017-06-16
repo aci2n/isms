@@ -19,6 +19,7 @@
 
 		$onInit() {
 			this.loadTypes();
+			this.currentType = this.$state.params.type;
 		}
 	}
 	MonitorWindowController.$inject = ['Monitor', '$state'];

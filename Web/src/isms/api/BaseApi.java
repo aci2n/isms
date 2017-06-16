@@ -10,4 +10,7 @@ public abstract class BaseApi {
 		return dao;
 	}
 
+	protected String user() {
+		return "avalon";
+	}
 }

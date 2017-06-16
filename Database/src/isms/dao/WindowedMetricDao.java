@@ -36,24 +36,25 @@ public class WindowedMetricDao extends BaseDao {
 		});
 	}
 
-	public List<WindowedMetric> getByOwnerAndSize(String ownerId, long size) {
-		String sql = "select " + ALL_COLS + " from WindowedMetrics where owner_id = ? and window_size = ?";
+	public List<WindowedMetric> getByOwnerAndSizeAndType(String ownerId, long size, String type) {
+		String sql = "select " + ALL_COLS + " from WindowedMetrics where owner_id = ? and window_size = ? and sensor_type = ?";
 		final List<WindowedMetric> windowedMetrics = new ArrayList<>();
 		run(sql, stmt -> {
 			stmt.setString(1, ownerId);
 			stmt.setLong(2, size);
+			stmt.setString(3, type);
 			if (stmt.execute()) {
 				ResultSet r = stmt.getResultSet();
 				while (r.next()) {
 					String id = r.getString(1);
-					SensorType type = SensorType.valueOf(r.getString(2));
+					SensorType t = SensorType.valueOf(r.getString(2));
 					long sz = r.getLong(3);
 					long start = r.getLong(4);
 					double avg = r.getDouble(5);
 					double min = r.getDouble(6);
 					double max = r.getDouble(7);
 					long count = r.getLong(8);
-					SensorAggregationKey key = new SensorAggregationKey(id, type);
+					SensorAggregationKey key = new SensorAggregationKey(id, t);
 					SensorMetric metric = new SensorMetric(avg, min, max, count);
 					WindowedMetric windowedMetric = new WindowedMetric(key, metric, sz, start);
 					windowedMetrics.add(windowedMetric);

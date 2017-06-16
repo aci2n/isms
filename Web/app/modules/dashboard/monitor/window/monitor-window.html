@@ -1,6 +1,6 @@
 <select
 	ng-model="monitorWindowVm.currentType"
-	ng-options="type in monitorWindowVm.types"
+	ng-options="type for type in monitorWindowVm.types"
 	ng-change="monitorWindowVm.setState(monitorWindowVm.currentType)">
 </select>
 

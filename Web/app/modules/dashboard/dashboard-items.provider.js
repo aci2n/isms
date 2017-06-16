@@ -3,15 +3,14 @@
 
 	function DashboardItemsProvider() {
         const items = {};
-
-        this.$get = DashboardItems;
+        
         this.register = register;
 
         function register(name, label) {
-            this.items['dashboard.' + name] = { label };
+            items['dashboard.' + name] = { label };
         }
 
-        class DashboardItems {
+        this.$get = class DashboardItems {
             all() {
                 return items;
             }
@@ -21,7 +20,7 @@
             }
         }
     }
-    DashboardItems.$inject = [];
+	DashboardItemsProvider.$inject = [];
 
 	angular.module('isms.dashboard').provider('DashboardItems', DashboardItemsProvider);
 }());

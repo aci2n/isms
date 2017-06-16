@@ -15,7 +15,7 @@ public class MetricsApiTest {
 		SensorAggregationKey key = new SensorAggregationKey("avalon", SensorType.HUMIDITY);
 		SensorMetric metric = new SensorMetric(12f, 15f, 57f, 1l);
 		WindowedMetric windowedMetric = new WindowedMetric(key, metric, 10l, 100l);
-		HttpResponse<String> response = UnirestWrapper.post(Constants.API_ENDPOINT_WINDOWED_METRICS)
+		HttpResponse<String> response = UnirestWrapper.post(Constants.API_MONITOR)
 				.body(windowedMetric).asString();
 		System.out.println("sent to windowed metrics API: " + response.getStatus() + " " + response.getBody());
 	}
