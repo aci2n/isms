@@ -60,7 +60,7 @@
         }
 
         openSocket(type, onMessage) {
-            const ws = this.$websocket(`${this.wsEndpoint}`);
+            const ws = this.$websocket(`${this.wsEndpoint}/${type}`);
             ws.onMessage(onMessage);
 
             return ws;
