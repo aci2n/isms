@@ -18,17 +18,13 @@ public class SensorTest {
 		String id = Config.get("sensorId");
 		String ownerId = Config.get("ownerId");
 
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 1000; i++) {
 			long timestamp = Instant.now().getEpochSecond();
 			SensorRecord record = new SensorRecord(id, ownerId, types[Math.abs(random.nextInt() % typesCount)],
 					timestamp, random.nextDouble() * 100 - 50);
 			UnirestWrapper.post(Constants.API_ENDPOINT_RECORDS).body(record).asBinaryAsync();
 			System.out.printf("[%d: %d]%s", i, timestamp, System.lineSeparator());
-
-			if (i % 100 == 0) {
-				System.out.println("Sleeping...");
-				Thread.sleep(1000);
-			}
+			Thread.sleep(1000);
 		}
 	}
 

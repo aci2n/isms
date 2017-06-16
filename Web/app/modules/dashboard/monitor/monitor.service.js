@@ -24,7 +24,7 @@
                 const ws = this.openSocket(type, onNormalizedMessage);
                 resource = {
                     handle: ws,
-                    free: ws.close
+                    free: ws.close.bind(ws)
                 };
             }
 

@@ -38,7 +38,9 @@
 		}
 
 		$onDestroy() {
-	        this.free && this.free();
+	        if (angular.isFunction(this.free)) {
+	        	this.free();
+	        }
         }
 	}
 	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter'];
