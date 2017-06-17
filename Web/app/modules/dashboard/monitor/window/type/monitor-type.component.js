@@ -20,7 +20,7 @@
 
 		defaultChart(label) {
 			// Value comes as a UNIX timestamp (seconds), js Date takes millis.
-			const tick = value => this.dateFilter(value * 1000, 'dd-mm-yyyy hh:mm:ss');
+			const tick = value => this.dateFilter(value * 1000, 'dd-MM-yyyy hh:mm:ss');
 			
             return {
                 data: [],
@@ -36,15 +36,24 @@
                         }]
                     },
                     animation: {
-                        duration: 0
+                    	duration: 0
                     },
-                    hover: {
-                        animationDuration: 0
+                    elements: {
+                        line: {
+                        	borderColor: '#87D37C',
+                            fill: false
+                        }
                     },
-                    responsiveAnimationDuration: 0
+                    tooltips: {
+                    	enabled: false
+                    }
                 }
             };
         }
+		
+		hasEnoughData() {
+			return this.chart.data.length > 2;
+		}
 
 		$onInit() {
 	        this.chart = this.defaultChart(this.capitalizeFilter(this.type));

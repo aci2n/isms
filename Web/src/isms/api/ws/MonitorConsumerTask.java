@@ -54,6 +54,7 @@ public class MonitorConsumerTask implements Runnable {
 	private Properties properties() {
 		Properties props = new Properties();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, Constants.GROUP_ID_MONITOR + "_" + UUID.randomUUID().toString());
+		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
 		return props;
 	}

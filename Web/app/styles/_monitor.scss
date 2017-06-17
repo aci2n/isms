@@ -1,0 +1,12 @@
+@import "constants";
+	
+monitor-type {
+    display: flex;
+    justify-content: center;
+    
+	figure {
+		position: relative;
+		width: 50vw;
+		height: 50vh;
+	}
+}	

@@ -1,4 +1,6 @@
-<figure>
+<loading ng-if="!monitorTypeVm.hasEnoughData()"></loading>
+
+<figure ng-if="monitorTypeVm.hasEnoughData()">
 	<canvas
 		class="chart chart-line"
 		chart-data="monitorTypeVm.chart.data"
