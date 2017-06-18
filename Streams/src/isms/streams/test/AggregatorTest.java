@@ -5,7 +5,7 @@ import java.time.Duration;
 import isms.streams.AggregatorTopologySupplier;
 import isms.streams.Streams;
 
-public class StreamsTest {
+public class AggregatorTest {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")

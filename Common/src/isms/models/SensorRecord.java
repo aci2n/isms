@@ -59,7 +59,7 @@ public class SensorRecord extends Model {
 		this.data = data;
 	}
 
-	public SensorThreshold controlThreshold() {
+	public SensorThreshold checkThreshold() {
 		return type.control(data);
 	}
 

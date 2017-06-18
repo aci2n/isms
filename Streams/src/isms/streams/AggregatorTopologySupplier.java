@@ -45,6 +45,7 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 		aggregation.foreach((windowedKey, metric) -> {
 			WindowedMetric windowedMetric = new WindowedMetric(windowedKey.key(), metric, windowSize,
 					windowedKey.window().start());
+			// TODO: Handle failures here to avoid losing data.
 			UnirestWrapper.post(Constants.API_ENDPOINT_MONITOR).body(windowedMetric).asBinaryAsync();
 		});
 

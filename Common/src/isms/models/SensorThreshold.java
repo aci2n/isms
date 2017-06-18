@@ -1,6 +1,6 @@
 package isms.models;
 
-public class SensorThreshold implements Comparable<SensorThreshold> {
+public class SensorThreshold extends Model implements Comparable<SensorThreshold> {
 
 	private ThresholdType type;
 	private double lower;
