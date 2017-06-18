@@ -4,11 +4,13 @@ import java.util.Properties;
 
 import org.apache.kafka.streams.processor.TopologyBuilder;
 
-public abstract class TopologySupplier {
+import isms.common.Supplier;
 
-	public abstract TopologyBuilder topology();
+public abstract class TopologySupplier implements Supplier<TopologyBuilder> {
+
+	public abstract TopologyBuilder get();
 
 	public Properties properties() {
-		return null;
+		return new Properties();
 	}
 }

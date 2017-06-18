@@ -26,7 +26,7 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 		this.windowSize = windowSize;
 	}
 
-	public TopologyBuilder topology() {
+	public TopologyBuilder get() {
 		final SensorAggregationKeySerde aggregationKeySerde = new SensorAggregationKeySerde();
 		final SensorMetricSerde metricSerde = new SensorMetricSerde();
 		final SensorRecordSerde recordSerde = new SensorRecordSerde();

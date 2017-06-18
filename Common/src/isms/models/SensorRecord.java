@@ -59,6 +59,10 @@ public class SensorRecord extends Model {
 		this.data = data;
 	}
 
+	public SensorThreshold controlThreshold() {
+		return type.control(data);
+	}
+
 	@Override
 	protected boolean strictEquals(Object o) {
 		SensorRecord other = (SensorRecord) o;

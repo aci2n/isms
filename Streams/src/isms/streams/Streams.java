@@ -18,13 +18,10 @@ public class Streams extends KafkaStreams {
 	}
 
 	public Streams(TopologySupplier provider) {
-		this(provider.topology(), provider.properties());
+		this(provider.get(), provider.properties());
 	}
 
 	private static Properties properties(Properties properties) {
-		if (properties == null) {
-			properties = new Properties();
-		}
 		properties.putIfAbsent(StreamsConfig.APPLICATION_ID_CONFIG, Constants.SENSOR_AGGREGATOR_APPLICATION_ID);
 		properties.putIfAbsent(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.BOOTSTRAP_SERVERS);
 		properties.putIfAbsent(StreamsConfig.KEY_SERDE_CLASS_CONFIG, StringSerde.class);

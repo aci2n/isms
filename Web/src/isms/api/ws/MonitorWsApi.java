@@ -32,16 +32,12 @@ public class MonitorWsApi extends BaseApi {
 
 	@OnError
 	public void error(Throwable t) throws Throwable {
-		int count = 0;
 		Throwable root = t;
-		while (root.getCause() != null && count++ < 20) {
+		for (int i = 0; root.getCause() != null && i < 20; i++) {
 			root = root.getCause();
 		}
-		if (root instanceof IOException) {
-			// ignore, assume client ended connection
-		} else {
-			throw t;
-		}
+		// Ignore if IOException, assume client ended connection.
+		if (!(root instanceof IOException)) throw t;
 	}
 
 }
