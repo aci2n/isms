@@ -11,6 +11,8 @@ public class Alert extends Model {
 	private long timestamp;
 	private boolean isRead;
 
+	public Alert() {}
+
 	public Alert(Long id, String sensorId, String ownerId, SensorType type, SensorThreshold threshold, double data,
 			long timestamp, boolean isRead) {
 		this.id = id;

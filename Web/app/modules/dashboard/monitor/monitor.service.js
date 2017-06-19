@@ -2,11 +2,10 @@
 	'use strict';
 
     class Monitor {
-        constructor($http, $websocket, $window) {
+        constructor($http, WebsocketHelper) {
         	this.$http = $http;
-        	this.$websocket = $websocket;
             this.endpoint = '/api/monitor';
-            this.wsEndpoint = `ws://${$window.location.host}/api/ws/monitor`;
+            this.WebsocketHelper = WebsocketHelper;
         }
 
         forWindowAndType(windowSize, type, onMessage) {
@@ -60,7 +59,7 @@
         }
 
         openSocket(type, onMessage) {
-            const ws = this.$websocket(`${this.wsEndpoint}/${type}`);
+            const ws = this.WebsocketHelper.open(`monitor/${type}`);
             ws.onMessage(onMessage);
 
             return ws;
@@ -74,7 +73,7 @@
             return this.$http.get(`${this.endpoint}/types`);
         }
     }
-    Monitor.$inject = ['$http', '$websocket', '$window'];
+    Monitor.$inject = ['$http', 'WebsocketHelper'];
 
 	angular.module('isms.dashboard').service('Monitor', Monitor);
 }());

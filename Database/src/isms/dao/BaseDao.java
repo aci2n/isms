@@ -32,7 +32,7 @@ public abstract class BaseDao {
 				if (stmt != null) stmt.close();
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Could not free database resources.");
+			throw new RuntimeException(e);
 		}
 	}
 

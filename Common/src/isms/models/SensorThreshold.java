@@ -6,6 +6,8 @@ public class SensorThreshold extends Model implements Comparable<SensorThreshold
 	private double lower;
 	private double upper;
 
+	public SensorThreshold() {}
+
 	public SensorThreshold(ThresholdType type, double lower, double upper) {
 		if (lower >= upper) throw new IllegalArgumentException("Upper bound must be higher than the lower bound.");
 		this.type = type;
