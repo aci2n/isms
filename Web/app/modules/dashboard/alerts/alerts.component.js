@@ -6,8 +6,19 @@
 	        this.Alerts = Alerts;
         }
 
-	    $onInit() {
+		addAlert(alert) {
+			this.items.push(alert);
+		}
 
+	    $onInit() {
+			this.items = [];
+			Alerts.disableNotifications();
+			this.unregister = Alerts.register(this.addAlert);
+		}
+
+		$onDestroy() {
+			Alerts.enableNotifications();
+			this.unregister();
 		}
 	}
 	AlertsController.$inject = ['Alerts'];
