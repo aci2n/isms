@@ -19,11 +19,14 @@
             this.notificationsEnabled = false;
         }
 
-        onMessage(alert) {
-            if (this.notificationsEnabled) {
-                this.Notifications.notify(alert);
+        onMessage(event) {
+            const alert = angular.fromJson(event.data);
+            if (alert) {
+                if (this.notificationsEnabled) {
+                    this.Notifications.notify(alert);
+                }
+                this.event.notify(alert);
             }
-            this.event.notify(alert);
         }
 
         register(listener) {
@@ -31,7 +34,12 @@
         }
 
         start() {
-            // Start websocket here.
+            const handle = this.WebsocketHelper.open('alert');
+            handle.onMessage(this.onMessage);
+        }
+
+        unread() {
+            return this.$http.get(`${this.endpoint}`);
         }
     }
     Alerts.$inject = ['$http', 'WebsocketHelper', 'EventHelper'];
