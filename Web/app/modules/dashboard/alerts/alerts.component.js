@@ -16,7 +16,7 @@
 				return (this.items = this.items.concat(response.data));
 			});
 			Alerts.disableNotifications();
-			this.unregister = Alerts.register(this.addAlert);
+			this.unregister = Alerts.register(this.addAlert.bind(this));
 		}
 
 		$onDestroy() {

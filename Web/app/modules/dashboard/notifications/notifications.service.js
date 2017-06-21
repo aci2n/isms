@@ -3,15 +3,15 @@
 
     class Notifications {
         constructor(EventHelper) {
-            this.event = EventHelper.create();
+            this.onNotification = EventHelper.create();
         }
 
-        register(listener) {
-            return this.event.register(listener);
+        subscribe(delegate) {
+            return this.onNotification.subscribe(delegate);
         }
 
-        notify(notification) {
-            this.event.notify(notification);
+        trigger(notification) {
+            this.onNotification.trigger(notification);
         }
     }
     Notifications.$inject = ['EventHelper'];

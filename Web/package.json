@@ -3,7 +3,7 @@
 	"name": "isms",
 	"private": true,
 	"devDependencies": {
-		"@uirouter/angularjs": "^1.0.3",
+		"angular-ui-router": "^1.0.3",
 		"angular": "^1.6.4",
 		"angular-chart.js": "^1.1.1",
 		"angular-websocket": "^2.0.1",

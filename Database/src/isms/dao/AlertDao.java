@@ -13,8 +13,10 @@ public class AlertDao extends BaseDao {
 
 	private static final String ALL_COLS = "owner_id, sensor_id, sensor_type, threshold_type, lower_bound, upper_bound, sensor_data, sensor_timestamp, is_read";
 
-	public void save(Alert alert) {
+	public Long save(Alert alert) {
+		InsertResult result = new InsertResult();
 		String sql = "insert into Alerts (" + ALL_COLS + ") " + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 		run(sql, stmt -> {
 			SensorThreshold threshold = alert.getThreshold();
 			stmt.setString(1, alert.getOwnerId());
@@ -26,13 +28,16 @@ public class AlertDao extends BaseDao {
 			stmt.setDouble(7, alert.getData());
 			stmt.setLong(8, alert.getTimestamp());
 			stmt.setBoolean(9, alert.isRead());
-			stmt.execute();
-		});
+
+			result.setId(insert(stmt));
+		}, true);
+
+		return result.getId();
 	}
 
 	public List<Alert> getUnread(String ownerId) {
 		List<Alert> unread = new ArrayList<>();
-		String sql = "select alert_id, " + ALL_COLS + "from Alerts where owner_id = ? and is_read = 0";
+		String sql = "select alert_id, " + ALL_COLS + " from Alerts where owner_id = ? and is_read = 0";
 
 		run(sql, stmt -> {
 			stmt.setString(1, ownerId);

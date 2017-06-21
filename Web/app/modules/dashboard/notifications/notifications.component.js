@@ -16,11 +16,11 @@
 
 	    $onInit() {
 			this.items = [];
-			this.unregiser = this.Notifications.register(this.addNotification);
+			this.unsubscribe = this.Notifications.subscribe(this.addNotification.bind(this));
 		}
 
 		$onDestroy() {
-			this.unregister();
+			this.unsubscribe();
 		}
     }
 	NotificationsController.$inject = ['Notifications'];

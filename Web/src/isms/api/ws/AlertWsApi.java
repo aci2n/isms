@@ -3,7 +3,6 @@ package isms.api.ws;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
@@ -16,6 +15,7 @@ import isms.common.Constants;
 import isms.common.ObjectMapperUnchecked;
 import isms.dao.AlertDao;
 import isms.models.Alert;
+import isms.services.Event;
 
 @ServerEndpoint(Constants.WS_PREFIX + Constants.API_ENDPOINT_ALERTS)
 public class AlertWsApi extends BaseWsApi {
@@ -23,13 +23,12 @@ public class AlertWsApi extends BaseWsApi {
 	private AlertDao dao;
 	private ObjectMapperUnchecked mapper;
 	private Basic remote;
-	private UUID key;
+	private Event<Alert>.Unsubscriber unsubscriber;
 
 	public AlertWsApi() {
 		super();
 		this.mapper = new ObjectMapperUnchecked();
 		this.dao = dao(new AlertDao());
-		this.key = UUID.randomUUID();
 	}
 
 	@OnOpen
@@ -38,8 +37,7 @@ public class AlertWsApi extends BaseWsApi {
 		List<Alert> unread = dao.getUnread(user());
 		String out = mapper.writeValueAsString(unread);
 		remote.sendText(out);
-
-		AlertsApi.addListener(key, this::onAlert);
+		unsubscriber = AlertsApi.subscribe(this::onAlert);
 	}
 
 	public void onAlert(Alert alert) {
@@ -54,6 +52,8 @@ public class AlertWsApi extends BaseWsApi {
 	@OnClose
 	@Override
 	public void end() {
-		AlertsApi.removeListener(key);
+		if (unsubscriber != null) {
+			unsubscriber.apply();
+		}
 	}
 }
