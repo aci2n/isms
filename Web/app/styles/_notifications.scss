@@ -1,0 +1,33 @@
+@import "constants";
+@import "base";
+	
+notifications {
+	aside {
+		display: flex;
+	    justify-content: space-between;
+	    padding: 2px;
+	    margin: 0 0 3px;
+	    cursor: pointer;
+	    color: $color_white_pure;
+	    
+	    &.CRITICAL {
+	    	background: $color_monza;
+	    }
+	    
+	    &.WARNING {
+	    	background: $color_lightning_yellow;
+	    }
+	    
+	    &.DANGER {
+	    	background: $color_burnt_orange;
+	    }
+	    
+	    button {
+			@include button();
+			
+	    	&:before {
+	    		content: "\274C";
+	    	}
+	    }
+    }
+}

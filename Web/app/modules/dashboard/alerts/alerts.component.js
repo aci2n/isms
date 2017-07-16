@@ -12,15 +12,15 @@
 
 	    $onInit() {
 			this.items = [];
-			Alerts.unread().then(response => {
+			this.Alerts.unread().then(response => {
 				return (this.items = this.items.concat(response.data));
 			});
-			Alerts.disableNotifications();
-			this.unregister = Alerts.register(this.addAlert.bind(this));
+			this.Alerts.disableNotifications();
+			this.unregister = this.Alerts.subscribe(this.addAlert.bind(this));
 		}
 
 		$onDestroy() {
-			Alerts.enableNotifications();
+			this.Alerts.enableNotifications();
 			this.unregister();
 		}
 	}

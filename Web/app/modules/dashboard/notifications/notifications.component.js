@@ -2,8 +2,9 @@
 	'use strict';
 
 	class NotificationsController {
-	    constructor(Notifications) {
+	    constructor(Notifications, $q) {
 			this.Notifications = Notifications;
+			this.$q = $q;
         }
 
 		addNotification(notification) {
@@ -12,6 +13,11 @@
 
 		removeNotification(index) {
 			this.items.splice(index, 1);
+		}
+		
+		dismiss(notification, index, event) {
+			event.stopPropagation();
+			return this.$q.when(notification.dismiss()).then(() => this.removeNotification(index));
 		}
 
 	    $onInit() {
@@ -23,7 +29,7 @@
 			this.unsubscribe();
 		}
     }
-	NotificationsController.$inject = ['Notifications'];
+	NotificationsController.$inject = ['Notifications', '$q'];
 
 	const component = {
         templateUrl: 'dashboard/notifications/notifications.html',

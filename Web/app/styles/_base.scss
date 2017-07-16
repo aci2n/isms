@@ -1,0 +1,9 @@
+@import "constants";
+	
+@mixin button() {
+	border: none;
+	background: none;
+	color: $color_white_pure;
+	cursor: pointer;
+	outline: none;	
+}

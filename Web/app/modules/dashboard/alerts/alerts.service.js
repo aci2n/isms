@@ -4,11 +4,11 @@
     class Alerts {
         constructor($http, WebsocketHelper, Notifications, EventHelper) {
         	this.$http = $http;
-            this.endpoint = '/api/alerts';
+            this.endpoint = '/api/alert';
             this.WebsocketHelper = WebsocketHelper;
             this.Notifications = Notifications;
             this.onAlert = EventHelper.create();
-            this.notificationsEnabled = true;
+            this.enableNotifications();
         }
 
         enableNotifications() {
@@ -18,14 +18,40 @@
         disableNotifications() {
             this.notificationsEnabled = false;
         }
+        
+        createNotification(alert) {
+        	let notification = null;
+        	
+        	if (alert.data) {
+	        	const data = alert.data.toFixed(3);
+	        	
+	        	notification = {
+	    			text: `[${alert.threshold.type}] Received ${alert.type} reading of ${data}.`,
+	    			type: alert.threshold.type,
+	    			state: 'dashboard.alerts',
+	    			dismiss: () => this.markRead(alert.id)
+	        	};
+        	}
+        	
+        	return notification;
+        }
 
         onMessage(event) {
-            const alert = angular.fromJson(event.data);
-            if (alert) {
-                if (this.notificationsEnabled) {
-                    this.Notifications.trigger(alert);
-                }
-                this.onAlert.trigger(alert);
+            const alerts = angular.fromJson(event.data);
+            
+            if (angular.isArray(alerts)) {
+	            for (const alert of alerts) {
+		            if (angular.isObject(alert)) {
+		                if (this.notificationsEnabled) {
+		                	const notification = this.createNotification(alert);
+		                	
+		                	if (notification) {
+		                		this.Notifications.trigger(notification);
+		                	}
+		                }
+		                this.onAlert.trigger(alert);
+		            }
+	            }
             }
         }
 
@@ -40,6 +66,10 @@
 
         unread() {
             return this.$http.get(`${this.endpoint}`);
+        }
+        
+        markRead(id) {
+        	return this.$http.post(`${this.endpoint}/${id}`);
         }
     }
     Alerts.$inject = ['$http', 'WebsocketHelper', 'Notifications', 'EventHelper'];

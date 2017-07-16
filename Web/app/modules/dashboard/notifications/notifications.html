@@ -1,3 +1,7 @@
-<aside ng-repeat="item in notificationsVm.items">
-    {{item}}
+<aside
+	ng-repeat="notification in notificationsVm.items"
+	ui-sref="{{notification.state}}"
+	ng-class="notification.type">
+   	{{notification.text}}
+   	<button ng-if="notification.dismiss" ng-click="notificationsVm.dismiss(notification, $index, $event)"></button>   
 </aside>
