@@ -9,7 +9,4 @@ public class ArduinoTemperatureSensor extends Sensor {
 		super(SensorType.TEMPERATURE, new ArduinoDriver());
 	}
 
-	public static void main(String args[]) {
-		new ArduinoTemperatureSensor().start();
-	}
 }

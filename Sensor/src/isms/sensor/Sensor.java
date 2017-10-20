@@ -53,7 +53,7 @@ public abstract class Sensor {
 		return Instant.now().getEpochSecond();
 	}
 
-	private void onDriverEvent(DriverEvent event) {
+	protected void onDriverEvent(DriverEvent event) {
 		SensorRecord record = new SensorRecord(getId(), getOwnerId(), getType(), timestamp(), event.getData());
 		UnirestWrapper.post(Constants.API_ENDPOINT_RECORDS).body(record).asBinaryAsync();
 	}
