@@ -2,10 +2,13 @@
 	'use strict';
 
 	class MonitorTypeController {
-	    constructor(Monitor, capitalizeFilter, dateFilter) {
+	    constructor(Monitor, capitalizeFilter, dateFilter, $timeout) {
 	        this.Monitor = Monitor;
 	        this.capitalizeFilter = capitalizeFilter;
 	        this.dateFilter = dateFilter;
+	        this.$timeout = $timeout;
+	        
+	        this.startInactivityTimer();
         }
 
 		loadDataset(windowSize, type) {
@@ -14,7 +17,7 @@
 			});
 
 			if (angular.isFunction(resource.free)) {
-			    this.free = resource.free;
+			    this.closeSocket = resource.free;
             }
 		}
 
@@ -54,6 +57,22 @@
 		hasEnoughData() {
 			return this.chart.data.length > 2;
 		}
+		
+		startInactivityTimer() {
+			this.$timeout(() => {
+				if (!this.hasEnoughData()) {
+					this.inactive = true;
+					this.cleanup();
+				}
+			}, 7500);
+		}
+		
+		cleanup() {
+			if (angular.isFunction(this.closeSocket)) {
+				this.closeSocket();
+				delete this.closeSocket;
+			}
+		}
 
 		$onInit() {
 	        this.chart = this.defaultChart(this.capitalizeFilter(this.type));
@@ -61,12 +80,10 @@
 		}
 
 		$onDestroy() {
-	        if (angular.isFunction(this.free)) {
-	        	this.free();
-	        }
+	        this.cleanup();
         }
 	}
-	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter', 'dateFilter'];
+	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter', 'dateFilter', '$timeout'];
 
 	const component = {
         templateUrl: 'dashboard/monitor/window/type/monitor-type.html',

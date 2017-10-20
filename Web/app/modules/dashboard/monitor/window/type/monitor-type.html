@@ -1,8 +1,14 @@
-<loading ng-if="!monitorTypeVm.hasEnoughData()"></loading>
+<div ng-if="!monitorTypeVm.inactive">
+	<loading ng-if="!monitorTypeVm.hasEnoughData()"></loading>
+	
+	<figure ng-if="monitorTypeVm.hasEnoughData()">
+		<canvas
+			class="chart chart-line"
+			chart-data="monitorTypeVm.chart.data"
+			chart-options="monitorTypeVm.chart.options"></canvas>
+	</figure>
+</div>
 
-<figure ng-if="monitorTypeVm.hasEnoughData()">
-	<canvas
-		class="chart chart-line"
-		chart-data="monitorTypeVm.chart.data"
-		chart-options="monitorTypeVm.chart.options"></canvas>
-</figure>
+<p class="monitor-inactive" ng-if="monitorTypeVm.inactive">
+	No data is being generated at the moment. Please try again later.
+</p>
