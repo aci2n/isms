@@ -30,7 +30,7 @@ public class ArduinoDriver extends Driver {
 			comPort = SerialPort.getCommPort(port);
 			comPort.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 2000, 0);
 			comPort.setBaudRate(9600);
-			if (!comPort.openPort()) { throw new Exception("Could not open serial port at: " + port); }
+			if (!comPort.openPort()) throw new Exception("Could not open serial port at: " + port);
 			poll(comPort);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,7 +50,7 @@ public class ArduinoDriver extends Driver {
 			while ((bytesAvailable = comPort.bytesAvailable()) == 0) {
 				Thread.sleep(20);
 			}
-			if (bytesAvailable < 0) { throw new Exception("Unexpected number of available bytes: " + bytesAvailable); }
+			if (bytesAvailable < 0) throw new Exception("Unexpected number of available bytes: " + bytesAvailable);
 
 			byte[] readBuffer = new byte[bytesAvailable];
 			comPort.readBytes(readBuffer, bytesAvailable);
