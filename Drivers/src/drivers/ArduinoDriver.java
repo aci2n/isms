@@ -35,15 +35,13 @@ public class ArduinoDriver extends Driver {
 	}
 
 	private void poll(SerialPort comPort) throws Exception {
-		byte[] buffer = new byte[8];
-		
 		while (true) {
 			int bytesAvailable;
-
 			while ((bytesAvailable = comPort.bytesAvailable()) == 0) {
 				Thread.sleep(20);
 			}
-			
+
+			byte[] buffer = new byte[bytesAvailable];
 			comPort.readBytes(buffer, bytesAvailable);
 
 			for (int i = 0; i < bytesAvailable; i++) {
