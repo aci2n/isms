@@ -1,22 +1,15 @@
 package drivers;
 
-import java.nio.charset.StandardCharsets;
-
 import com.fazecast.jSerialComm.SerialPort;
-
-import isms.common.SafeNumberParser;
 
 public class ArduinoDriver extends Driver {
 
-	private static final String DELIMITER = ",";
 	private static final String DEFAULT_PORT = "/dev/ttyACM0";
 
 	private String port;
-	private SafeNumberParser numberParser;
 
 	public ArduinoDriver(String port) {
 		this.port = port;
-		this.numberParser = new SafeNumberParser();
 	}
 
 	public ArduinoDriver() {
@@ -42,44 +35,24 @@ public class ArduinoDriver extends Driver {
 	}
 
 	private void poll(SerialPort comPort) throws Exception {
-		String partial = "";
-		boolean first = true;
-
+		byte[] buffer = new byte[8];
+		
 		while (true) {
-			int bytes;
-			while ((bytes = comPort.bytesAvailable()) == 0) {
+			int bytesAvailable;
+
+			while ((bytesAvailable = comPort.bytesAvailable()) == 0) {
 				Thread.sleep(20);
 			}
-			if (bytes < 0) throw new Exception("Unexpected number of available bytes: " + bytes);
+			
+			comPort.readBytes(buffer, bytesAvailable);
 
-			byte[] buffer = new byte[bytes];
-			comPort.readBytes(buffer, bytes);
-
-			// skip first reading since it's usually inaccurate
-			if (first) {
-				first = false;
-				continue;
-			}
-
-			String reading = new String(buffer, StandardCharsets.US_ASCII);
-			String[] tokens = reading.split(DELIMITER, -1);
-
-			if (tokens.length == 0) {
-				continue;
-			}
-
-			int last = tokens.length - 1;
-
-			tokens[0] = partial + tokens[0];
-			partial = tokens[last];
-
-			for (int i = 0; i < last; i++) {
-				Double value = numberParser.parseDouble(tokens[i]);
-
-				if (value != null) {
-					trigger(value);
-				}
+			for (int i = 0; i < bytesAvailable; i++) {
+				trigger(temperature(buffer[i] & 0xFF));
 			}
 		}
+	}
+
+	private double temperature(int reading) {
+		return (reading * 5 * 100) / 1024.0;
 	}
 }
