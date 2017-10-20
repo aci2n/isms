@@ -5,6 +5,7 @@ import com.fazecast.jSerialComm.SerialPort;
 public class ArduinoDriver extends Driver {
 
 	private static final String DEFAULT_PORT = "/dev/ttyACM0";
+	private static final int SIZEOF_MESSAGE = 1;
 
 	private String port;
 
@@ -21,8 +22,7 @@ public class ArduinoDriver extends Driver {
 
 		try {
 			comPort = SerialPort.getCommPort(port);
-			comPort.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 2000, 0);
-			comPort.setBaudRate(9600);
+			comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
 			if (!comPort.openPort()) throw new Exception("Could not open serial port at: " + port);
 			poll(comPort);
 		} catch (Exception e) {
@@ -35,22 +35,15 @@ public class ArduinoDriver extends Driver {
 	}
 
 	private void poll(SerialPort comPort) throws Exception {
+		byte[] buffer = new byte[SIZEOF_MESSAGE];
+
 		while (true) {
-			int bytesAvailable;
-			while ((bytesAvailable = comPort.bytesAvailable()) == 0) {
-				Thread.sleep(20);
-			}
-
-			byte[] buffer = new byte[bytesAvailable];
-			comPort.readBytes(buffer, bytesAvailable);
-
-			for (int i = 0; i < bytesAvailable; i++) {
-				trigger(temperature(buffer[i] & 0xFF));
-			}
+			comPort.readBytes(buffer, SIZEOF_MESSAGE);
+			trigger(translate(buffer));
 		}
 	}
 
-	private double temperature(int reading) {
-		return (reading * 5 * 100) / 1024.0;
+	private double translate(byte[] buffer) {
+		return ((buffer[0] & 0xFF) * 5 * 100) / 1024.0;
 	}
 }
