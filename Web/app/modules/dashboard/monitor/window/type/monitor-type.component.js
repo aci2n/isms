@@ -6,18 +6,30 @@
 	        this.Monitor = Monitor;
 	        this.capitalizeFilter = capitalizeFilter;
 	        this.dateFilter = dateFilter;
-	        this.$timeout = $timeout;
-	        
-	        this.startInactivityTimer();
+	        this.$timeout = $timeout;	        
         }
 
 		loadDataset(windowSize, type) {
+			const realtime = windowSize === 0;
 			const resource = this.Monitor.forWindowAndType(windowSize, type, points => {
-				return (this.chart.data = this.chart.data.concat(points));
+				this.chart.data = this.chart.data.concat(points)
+				
+				if (!realtime && !this.hasEnoughData()) {
+					this.inactivate();
+				}
+				
+				return this.chart.data;
 			});
 
-			if (angular.isFunction(resource.free)) {
-			    this.closeSocket = resource.free;
+			if (realtime) {
+			    this.free = resource.free;
+				this.$timeout(() => {
+					if (!this.hasEnoughData()) {
+						this.inactivate();
+						this.free();
+						delete this.free;
+					}
+				}, 5000);
             }
 		}
 
@@ -55,32 +67,23 @@
         }
 		
 		hasEnoughData() {
-			return this.chart.data.length > 2;
+			return this.chart.data.length > 0;
 		}
 		
-		startInactivityTimer() {
-			this.$timeout(() => {
-				if (!this.hasEnoughData()) {
-					this.inactive = true;
-					this.cleanup();
-				}
-			}, 7500);
+		inactivate() {
+			return this.inactive = true;
 		}
 		
-		cleanup() {
-			if (angular.isFunction(this.closeSocket)) {
-				this.closeSocket();
-				delete this.closeSocket;
-			}
-		}
-
 		$onInit() {
+			this.windowSize = Number.parseInt(this.windowSize);
 	        this.chart = this.defaultChart(this.capitalizeFilter(this.type));
 			this.loadDataset(this.windowSize, this.type);
 		}
 
 		$onDestroy() {
-	        this.cleanup();
+	        if (angular.isFunction(this.free)) {
+	        	this.free();
+	        }
         }
 	}
 	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter', 'dateFilter', '$timeout'];

@@ -9,7 +9,6 @@
         }
 
         forWindowAndType(windowSize, type, onMessage) {
-        	windowSize = Number.parseInt(windowSize, 10);
             let resource = null;
 
             const onNormalizedMessage = message => onMessage(this.normalizeMessage(message));

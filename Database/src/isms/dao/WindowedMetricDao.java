@@ -37,7 +37,9 @@ public class WindowedMetricDao extends BaseDao {
 	}
 
 	public List<WindowedMetric> getByOwnerAndSizeAndType(String ownerId, long size, String type) {
-		String sql = "select " + ALL_COLS + " from WindowedMetrics where owner_id = ? and window_size = ? and sensor_type = ? limit 10";
+		String sql = "select " + ALL_COLS + " from WindowedMetrics "
+				+ "where owner_id = ? and window_size = ? and sensor_type = ? "
+				+ "order by window_start desc limit 10";
 		final List<WindowedMetric> windowedMetrics = new ArrayList<>();
 		run(sql, stmt -> {
 			stmt.setString(1, ownerId);
