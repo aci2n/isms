@@ -1,26 +1,23 @@
 package drivers;
 
 import isms.common.Delegate;
-import isms.common.Event;
 
 public abstract class Driver {
 
-	private Event<DriverReading> event;
+	private Delegate<DriverEvent> delegate;
 
-	protected Driver() {
-		this.event = new Event<>();
-	}
-
-	protected void trigger(DriverReading reading) {
-		event.trigger(reading);
+	protected void trigger(DriverEvent event) {
+		if (delegate != null) {
+			delegate.apply(event);
+		}
 	}
 
 	protected void trigger(double data) {
-		trigger(new DriverReading(data));
+		trigger(new DriverEvent(data));
 	}
 
-	public void subscribe(Delegate<DriverReading> delegate) {
-		event.subscribe(delegate);
+	public void setDelegate(Delegate<DriverEvent> delegate) {
+		this.delegate = delegate;
 	}
 
 	public abstract void poll();

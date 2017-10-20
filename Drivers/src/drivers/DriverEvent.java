@@ -3,12 +3,12 @@ package drivers;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DriverReading {
+public class DriverEvent {
 
 	private double data;
 	private Map<String, String> metadata;
 
-	DriverReading(double data) {
+	DriverEvent(double data) {
 		this.data = data;
 	}
 
@@ -16,7 +16,7 @@ public class DriverReading {
 		return data;
 	}
 
-	public DriverReading addMetadata(String key, String value) {
+	public DriverEvent addMetadata(String key, String value) {
 		if (metadata == null) {
 			metadata = new HashMap<>();
 		}

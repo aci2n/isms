@@ -5,7 +5,7 @@ import isms.common.Delegate;
 import isms.common.UnirestWrapper;
 import isms.models.SensorRecord;
 
-public class WebAPIPublisher implements Delegate<SensorRecord> {
+public class APIPublisher implements Delegate<SensorRecord> {
 
 	public void apply(SensorRecord record) {
 		UnirestWrapper.post(Constants.API_ENDPOINT_RECORDS).body(record).asBinaryAsync();
