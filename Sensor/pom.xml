@@ -22,12 +22,21 @@
 			<groupId>isms</groupId>
 			<artifactId>common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>isms</groupId>
+			<artifactId>drivers</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>isms</groupId>
 				<artifactId>common</artifactId>
+				<version>0.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>isms</groupId>
+				<artifactId>drivers</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 		</dependencies>
