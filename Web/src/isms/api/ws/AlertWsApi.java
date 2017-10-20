@@ -12,10 +12,10 @@ import javax.websocket.server.ServerEndpoint;
 
 import isms.api.AlertsApi;
 import isms.common.Constants;
+import isms.common.Event;
 import isms.common.ObjectMapperUnchecked;
 import isms.dao.AlertDao;
 import isms.models.Alert;
-import isms.services.Event;
 
 @ServerEndpoint(Constants.WS_PREFIX + Constants.API_ENDPOINT_ALERTS)
 public class AlertWsApi extends BaseWsApi {

@@ -23,7 +23,7 @@ public class ArduinoDriver extends Driver {
 		this(DEFAULT_PORT);
 	}
 
-	public void start() {
+	public void poll() {
 		SerialPort comPort = null;
 
 		try {
@@ -42,26 +42,26 @@ public class ArduinoDriver extends Driver {
 	}
 
 	private void poll(SerialPort comPort) throws Exception {
-		String partialValue = "";
-		boolean skippedFirst = false;
+		String partial = "";
+		boolean first = true;
 
 		while (true) {
-			int bytesAvailable;
-			while ((bytesAvailable = comPort.bytesAvailable()) == 0) {
+			int bytes;
+			while ((bytes = comPort.bytesAvailable()) == 0) {
 				Thread.sleep(20);
 			}
-			if (bytesAvailable < 0) throw new Exception("Unexpected number of available bytes: " + bytesAvailable);
+			if (bytes < 0) throw new Exception("Unexpected number of available bytes: " + bytes);
 
-			byte[] readBuffer = new byte[bytesAvailable];
-			comPort.readBytes(readBuffer, bytesAvailable);
+			byte[] buffer = new byte[bytes];
+			comPort.readBytes(buffer, bytes);
 
 			// skip first reading since it's usually inaccurate
-			if (!skippedFirst) {
-				skippedFirst = true;
+			if (first) {
+				first = false;
 				continue;
 			}
 
-			String reading = new String(readBuffer, StandardCharsets.US_ASCII);
+			String reading = new String(buffer, StandardCharsets.US_ASCII);
 			String[] tokens = reading.split(DELIMITER, -1);
 
 			if (tokens.length == 0) {
@@ -70,14 +70,14 @@ public class ArduinoDriver extends Driver {
 
 			int last = tokens.length - 1;
 
-			tokens[0] = partialValue + tokens[0];
-			partialValue = tokens[last];
+			tokens[0] = partial + tokens[0];
+			partial = tokens[last];
 
 			for (int i = 0; i < last; i++) {
 				Double value = numberParser.parseDouble(tokens[i]);
 
 				if (value != null) {
-					notify(new DriverEvent(value));
+					trigger(value);
 				}
 			}
 		}

@@ -3,26 +3,35 @@ package isms.sensor;
 import java.time.Instant;
 
 import drivers.Driver;
-import drivers.DriverEvent;
-import isms.common.Constants;
-import isms.common.UnirestWrapper;
+import drivers.DriverReading;
+import isms.common.Delegate;
+import isms.common.Event;
 import isms.models.SensorRecord;
 import isms.models.SensorType;
 
-public abstract class Sensor {
+public class Sensor {
 
 	private String id;
 	private String ownerId;
 	private SensorType type;
 	private Driver driver;
+	private Event<SensorRecord> event;
 
-	protected Sensor(SensorType type, Driver driver) {
+	public Sensor(SensorType type) {
+		this.type = type;
 		this.id = Config.get("sensorId");
 		this.ownerId = Config.get("ownerId");
-		this.type = type;
-		this.driver = driver;
+		this.event = new Event<>();
+	}
 
-		driver.setListener(this::onDriverEvent);
+	public Sensor(SensorType type, Driver driver) {
+		this(type);
+		setDriver(driver);
+	}
+
+	public Sensor(SensorType type, Driver driver, Delegate<SensorRecord> delegate) {
+		this(type, driver);
+		subscribe(delegate);
 	}
 
 	public String getId() {
@@ -53,13 +62,28 @@ public abstract class Sensor {
 		return Instant.now().getEpochSecond();
 	}
 
-	protected void onDriverEvent(DriverEvent event) {
-		SensorRecord record = new SensorRecord(getId(), getOwnerId(), getType(), timestamp(), event.getData());
-		UnirestWrapper.post(Constants.API_ENDPOINT_RECORDS).body(record).asBinaryAsync();
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		if (driver != null) {
+			driver.subscribe(this::onDriverEvent);
+		}
+
+		this.driver = driver;
+	}
+
+	protected void onDriverEvent(DriverReading data) {
+		event.trigger(new SensorRecord(getId(), getOwnerId(), getType(), timestamp(), data.getData()));
+	}
+
+	public void subscribe(Delegate<SensorRecord> delegate) {
+		event.subscribe(delegate);
 	}
 
 	public void start() {
-		driver.start();
+		driver.poll();
 	}
 
 }

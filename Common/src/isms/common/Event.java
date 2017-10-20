@@ -1,4 +1,4 @@
-package isms.services;
+package isms.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;

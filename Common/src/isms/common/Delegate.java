@@ -1,4 +1,4 @@
-package isms.services;
+package isms.common;
 
 public interface Delegate<T> {
 

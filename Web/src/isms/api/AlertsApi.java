@@ -8,10 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import isms.common.Constants;
+import isms.common.Delegate;
+import isms.common.Event;
 import isms.dao.AlertDao;
 import isms.models.Alert;
-import isms.services.Delegate;
-import isms.services.Event;
 
 @Path(Constants.API_ENDPOINT_ALERTS)
 @Consumes(MediaType.APPLICATION_JSON)
