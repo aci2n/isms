@@ -12,7 +12,7 @@
 		loadDataset(windowSize, type) {
 			const realtime = windowSize === 0;
 			const resource = this.Monitor.forWindowAndType(windowSize, type, points => {
-				this.chart.data = this.chart.data.concat(points)
+				this.chart.data = this.chart.data.concat(points);
 				
 				if (!realtime && !this.hasEnoughData()) {
 					this.inactivate();

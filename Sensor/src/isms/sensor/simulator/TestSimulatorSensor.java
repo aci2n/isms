@@ -14,7 +14,7 @@ public class TestSimulatorSensor {
 		int std = 2;
 		int sleep = 1000;
 		Driver driver = new NormalSimulatorDriver(mean, std, sleep);
-		SensorLocation location = new SensorLocation("silo_2", 1, 1, 1);
+		SensorLocation location = new SensorLocation("silo_2", 3);
 		Sensor sensor = new Sensor(SensorType.HUMIDITY, driver, new APIPublisher(), location);
 
 		sensor.start();

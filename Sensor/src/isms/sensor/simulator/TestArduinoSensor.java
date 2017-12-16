@@ -9,7 +9,7 @@ import isms.sensor.Sensor;
 public class TestArduinoSensor {
 
 	public static void main(String[] args) {
-		SensorLocation location = new SensorLocation("silo_1", 2, 2, 2);
+		SensorLocation location = new SensorLocation("silo_1", 2);
 		Sensor sensor = new Sensor(SensorType.TEMPERATURE, new ArduinoDriver(), new APIPublisher(), location);
 
 		sensor.start();
