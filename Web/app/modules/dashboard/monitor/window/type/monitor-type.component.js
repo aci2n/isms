@@ -2,23 +2,24 @@
 	'use strict';
 
 	class MonitorTypeController {
-	    constructor(Monitor, capitalizeFilter, dateFilter, $timeout) {
+	    constructor(Monitor, capitalizeFilter, dateFilter, $timeout, chartDataFilter) {
 	        this.Monitor = Monitor;
 	        this.capitalizeFilter = capitalizeFilter;
 	        this.dateFilter = dateFilter;
 	        this.$timeout = $timeout;	        
+	        this.chartDataFilter = chartDataFilter;
         }
 
 		loadDataset(windowSize, type) {
 			const realtime = windowSize === 0;
 			const resource = this.Monitor.forWindowAndType(windowSize, type, points => {
-				this.updateData(this.chart.data, points);
+				this.updateData(this.data, points);
 				
 				if (!realtime && !this.hasEnoughData()) {
 					this.inactivate();
 				}
 				
-				return this.chart.data;
+				return this.data;
 			});
 
 			if (realtime) {
@@ -34,6 +35,8 @@
 		}
 		
 		updateData(data, points) {
+			this._updatedData = true;
+			
 			points.forEach(function(point) {
 				const location = point.location;
 				
@@ -56,7 +59,7 @@
 			const tick = value => this.dateFilter(value * 1000, 'dd-MM-yyyy hh:mm:ss');
 			
             return {
-                data: {},
+                data: [],
             	options: {
                     label: label,
                     scales: {
@@ -85,16 +88,24 @@
         }
 		
 		hasEnoughData() {
-			return Object.keys(this.chart.data).length > 0;
+			return Object.keys(this.data).length > 0;
 		}
 		
 		inactivate() {
 			return this.inactive = true;
 		}
 		
+		$doCheck() {
+			if (this._updatedData) {
+				this.chart.data = this.chartDataFilter(this.data, this.currentLocation, this.currentSection);
+				delete this._updatedData;
+			}
+		}
+		
 		$onInit() {
 			this.windowSize = Number.parseInt(this.windowSize);
 	        this.chart = this.defaultChart(this.capitalizeFilter(this.type));
+	        this.data = {};
 			this.loadDataset(this.windowSize, this.type);
 		}
 
@@ -104,7 +115,7 @@
 	        }
         }
 	}
-	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter', 'dateFilter', '$timeout'];
+	MonitorTypeController.$inject = ['Monitor', 'capitalizeFilter', 'dateFilter', '$timeout', 'chartDataFilter'];
 
 	const component = {
         templateUrl: 'dashboard/monitor/window/type/monitor-type.html',

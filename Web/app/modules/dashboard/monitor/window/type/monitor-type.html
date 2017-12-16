@@ -5,13 +5,13 @@
 		<div class="monitor-location">
 			<select
 				ng-model="monitorTypeVm.currentLocation"
-				ng-options="location as location for (location, index) in monitorTypeVm.chart.data">
+				ng-options="location as location for (location, index) in monitorTypeVm.data">
 			</select>
 		</div>
 		<figure ng-if="monitorTypeVm.hasEnoughData()">
 			<canvas
 				class="chart chart-line"
-				chart-data="monitorTypeVm.chart.data | chartData : monitorTypeVm.currentLocation : monitorTypeVm.currentSection"
+				chart-data="monitorTypeVm.chart.data"
 				chart-options="monitorTypeVm.chart.options"></canvas>
 		</figure>
 	</div>
