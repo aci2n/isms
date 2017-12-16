@@ -7,6 +7,8 @@ public class SensorLocation {
 	private double y;
 	private double z;
 
+	public SensorLocation() {}
+
 	public SensorLocation(String locationId, double x, double y, double z) {
 		super();
 		this.locationId = locationId;

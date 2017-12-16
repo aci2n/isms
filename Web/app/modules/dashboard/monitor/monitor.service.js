@@ -10,7 +10,6 @@
 
         forWindowAndType(windowSize, type, onMessage) {
             let resource = null;
-
             const onNormalizedMessage = message => onMessage(this.normalizeMessage(message));
 
             if (windowSize !== 0) {
