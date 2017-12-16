@@ -47,12 +47,17 @@
 	            		point.y = item.data;
 	            	}
 	            	
+	            	point.location = item.location || {
+	            		locationId: null,
+	            		section: null
+	            	};
+	            	
 	                return point;
 	            });
         	} else {
         		data = [];
         	}
-        	
+        	        	
         	return data;
         }
 

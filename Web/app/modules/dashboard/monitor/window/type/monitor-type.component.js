@@ -12,7 +12,7 @@
 		loadDataset(windowSize, type) {
 			const realtime = windowSize === 0;
 			const resource = this.Monitor.forWindowAndType(windowSize, type, points => {
-				this.chart.data = this.chart.data.concat(points);
+				this.updateData(this.chart.data, points);
 				
 				if (!realtime && !this.hasEnoughData()) {
 					this.inactivate();
@@ -32,14 +32,32 @@
 				}, 5000);
             }
 		}
+		
+		updateData(data, points) {
+			points.forEach(function(point) {
+				const location = point.location;
+				
+				let locationIndex = data[location.locationId]; 
+				if (!locationIndex) {
+					locationIndex = data[location.locationId] = {};
+				}
+				
+				let sectionPoints = locationIndex[location.section];
+				if (!sectionPoints) {
+					sectionPoints = locationIndex[location.section] = [];
+				}
+				
+				sectionPoints.push({x: point.x, y: point.y});
+			});
+		}
 
 		defaultChart(label) {
 			// Value comes as a UNIX timestamp (seconds), js Date takes millis.
 			const tick = value => this.dateFilter(value * 1000, 'dd-MM-yyyy hh:mm:ss');
 			
             return {
-                data: [],
-                options: {
+                data: {},
+            	options: {
                     label: label,
                     scales: {
                         xAxes: [{
@@ -67,7 +85,7 @@
         }
 		
 		hasEnoughData() {
-			return this.chart.data.length > 0;
+			return Object.keys(this.chart.data).length > 0;
 		}
 		
 		inactivate() {

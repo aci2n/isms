@@ -8,7 +8,7 @@ const sass = require('gulp-sass');
 const dist = './WebContent/dist/';
 const app = './app/';
 const modules = './node_modules/';
-const tomcatdist = '/home/pfi/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Web/dist';
+const tomcatdist = '/home/pfi/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/Web/dist';
 
 gulp.task('default', ['build']);
 

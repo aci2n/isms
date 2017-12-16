@@ -1,12 +1,20 @@
 <div ng-if="!monitorTypeVm.inactive">
 	<loading ng-if="!monitorTypeVm.hasEnoughData()"></loading>
 	
-	<figure ng-if="monitorTypeVm.hasEnoughData()">
-		<canvas
-			class="chart chart-line"
-			chart-data="monitorTypeVm.chart.data"
-			chart-options="monitorTypeVm.chart.options"></canvas>
-	</figure>
+	<div class="monitor-chart">
+		<div class="monitor-location">
+			<select
+				ng-model="monitorTypeVm.currentLocation"
+				ng-options="location as location for (location, index) in monitorTypeVm.chart.data">
+			</select>
+		</div>
+		<figure ng-if="monitorTypeVm.hasEnoughData()">
+			<canvas
+				class="chart chart-line"
+				chart-data="monitorTypeVm.chart.data | chartData : monitorTypeVm.currentLocation : monitorTypeVm.currentSection"
+				chart-options="monitorTypeVm.chart.options"></canvas>
+		</figure>
+	</div>
 </div>
 
 <p class="monitor-inactive" ng-if="monitorTypeVm.inactive">
