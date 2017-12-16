@@ -7,16 +7,19 @@ public class SensorRecord extends Model {
 	private SensorType type;
 	private long time;
 	private double data;
+	private SensorLocation location;
 
 	public SensorRecord() {}
 
-	public SensorRecord(String sensorId, String ownerId, SensorType type, long time, double data) {
+	public SensorRecord(String sensorId, String ownerId, SensorType type, long time, double data,
+			SensorLocation location) {
 		super();
 		this.sensorId = sensorId;
 		this.ownerId = ownerId;
 		this.type = type;
 		this.time = time;
 		this.data = data;
+		this.location = location;
 	}
 
 	public String getSensorId() {
@@ -59,6 +62,14 @@ public class SensorRecord extends Model {
 		this.data = data;
 	}
 
+	public SensorLocation getLocation() {
+		return location;
+	}
+
+	public void setLocation(SensorLocation location) {
+		this.location = location;
+	}
+
 	public SensorThreshold checkThreshold() {
 		return type.control(data);
 	}
@@ -67,7 +78,8 @@ public class SensorRecord extends Model {
 	protected boolean strictEquals(Object o) {
 		SensorRecord other = (SensorRecord) o;
 		return sensorId.equals(other.getSensorId()) && ownerId.equals(other.getOwnerId())
-				&& type.equals(other.getType()) && time == other.getTime() && data == other.getData();
+				&& type.equals(other.getType()) && time == other.getTime() && data == other.getData()
+				&& location.equals(other.getLocation());
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import isms.common.Constants;
 import isms.common.UnirestWrapper;
+import isms.models.SensorLocation;
 import isms.models.SensorRecord;
 import isms.models.SensorType;
 import isms.sensor.Config;
@@ -21,7 +22,7 @@ public class SensorTest {
 		for (int i = 0; i < 100000; i++) {
 			long timestamp = Instant.now().getEpochSecond();
 			SensorRecord record = new SensorRecord(id, ownerId, types[Math.abs(random.nextInt() % typesCount)],
-					timestamp, random.nextDouble() * 100 - 50);
+					timestamp, random.nextDouble() * 100 - 50, new SensorLocation("silo_1", 1, 1, 1));
 			UnirestWrapper.post(Constants.API_ENDPOINT_RECORDS).body(record).asBinaryAsync();
 			System.out.printf("[%d: %d]%s", i, timestamp, System.lineSeparator());
 			Thread.sleep(500);
