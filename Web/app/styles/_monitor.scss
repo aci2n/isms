@@ -8,5 +8,12 @@ monitor-type {
 		position: relative;
 		width: 50vw;
 		height: 50vh;
+		margin: 0;
 	}
 }	
+
+.monitor-panel {
+	display: flex;
+	justify-content: space-between;
+	padding: 5%;
+}

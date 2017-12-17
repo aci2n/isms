@@ -48,7 +48,7 @@
 	            	}
 	            	
 	            	point.location = item.location || {
-	            		locationId: null,
+	            		locationId: "all",
 	            		section: null
 	            	};
 	            	

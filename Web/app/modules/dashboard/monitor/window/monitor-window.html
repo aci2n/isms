@@ -1,7 +1,11 @@
-<select
-	ng-model="monitorWindowVm.currentType"
-	ng-options="type for type in monitorWindowVm.types"
-	ng-change="monitorWindowVm.setState(monitorWindowVm.currentType)">
-</select>
+<label>
+	Sensor Type:
+	
+	<select
+		ng-model="monitorWindowVm.currentType"
+		ng-options="type for type in monitorWindowVm.types"
+		ng-change="monitorWindowVm.setState(monitorWindowVm.currentType)">
+	</select>
+</label>
 
 <ui-view></ui-view>

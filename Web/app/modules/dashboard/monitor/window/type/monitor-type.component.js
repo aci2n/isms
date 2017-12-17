@@ -88,16 +88,20 @@
         }
 		
 		hasEnoughData() {
-			return Object.keys(this.data).length > 0;
+			return Object.keys(this.data).length > 1 || Array.isArray(this.data.all[null]);
 		}
 		
 		inactivate() {
 			return this.inactive = true;
 		}
 		
+		refreshChartData() {
+			this.chart.data = this.chartDataFilter(this.data, this.currentLocation, this.currentSection);
+		}
+		
 		$doCheck() {
 			if (this._updatedData) {
-				this.chart.data = this.chartDataFilter(this.data, this.currentLocation, this.currentSection);
+				this.refreshChartData();
 				delete this._updatedData;
 			}
 		}
@@ -105,7 +109,9 @@
 		$onInit() {
 			this.windowSize = Number.parseInt(this.windowSize);
 	        this.chart = this.defaultChart(this.capitalizeFilter(this.type));
-	        this.data = {};
+	        this.data = {all: {}};
+	        this.currentLocation = 'all';
+	        this.currentSection = null;
 			this.loadDataset(this.windowSize, this.type);
 		}
 

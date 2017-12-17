@@ -1,22 +1,24 @@
-<div ng-if="!monitorTypeVm.inactive">
-	<loading ng-if="!monitorTypeVm.hasEnoughData()"></loading>
-	
-	<div class="monitor-chart">
-		<div class="monitor-location">
+<loading ng-if="!monitorTypeVm.hasEnoughData() && !monitorTypeVm.inactive"></loading>
+
+<div class="monitor-panel" ng-if="monitorTypeVm.hasEnoughData()" >
+	<div>
+		<label>
+			Location:
 			<select
 				ng-model="monitorTypeVm.currentLocation"
-				ng-options="location as location for (location, index) in monitorTypeVm.data">
+				ng-options="location as location for (location, index) in monitorTypeVm.data"
+				ng-change="monitorTypeVm.refreshChartData()">
 			</select>
-		</div>
-		<figure ng-if="monitorTypeVm.hasEnoughData()">
-			<canvas
-				class="chart chart-line"
-				chart-data="monitorTypeVm.chart.data"
-				chart-options="monitorTypeVm.chart.options"></canvas>
-		</figure>
+		</label>
 	</div>
+	<figure>
+		<canvas
+			class="chart chart-line"
+			chart-data="monitorTypeVm.chart.data"
+			chart-options="monitorTypeVm.chart.options"></canvas>
+	</figure>
 </div>
 
-<p class="monitor-inactive" ng-if="monitorTypeVm.inactive">
+<p ng-if="monitorTypeVm.inactive" class="monitor-inactive">
 	No data is being generated at the moment. Please try again later.
 </p>

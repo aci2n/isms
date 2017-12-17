@@ -1,6 +1,10 @@
 <h2>Monitor</h2>
-<select
-	ng-model="monitorVm.currentWindowSize"
-	ng-options="window.size as window.label for window in monitorVm.availableWindowSizes"
-	ng-change="monitorVm.setState(monitorVm.currentWindowSize)"></select>
+
+<label>
+	Time window (seconds):
+	<select
+		ng-model="monitorVm.currentWindowSize"
+		ng-options="window.size as window.label for window in monitorVm.availableWindowSizes"
+		ng-change="monitorVm.setState(monitorVm.currentWindowSize)"></select>
+</label>
 <ui-view></ui-view>
