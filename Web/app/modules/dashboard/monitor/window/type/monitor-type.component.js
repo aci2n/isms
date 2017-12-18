@@ -87,6 +87,10 @@
             };
         }
 		
+		selectSection(section) {
+			this.currentSection = section;
+		}
+		
 		hasEnoughData() {
 			return Object.keys(this.data).length > 1 || Array.isArray(this.data.all[null]);
 		}

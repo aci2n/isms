@@ -12,7 +12,8 @@
         controllerAs: 'locationVm',
         bindings: {
             sections: '<',
-            name: '<'
+            name: '<',
+            onPress: '&'
         }
     };
 

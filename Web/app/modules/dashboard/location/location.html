@@ -3,7 +3,8 @@
 <div>
 	<span
 		ng-repeat="(section, points) in locationVm.sections"
-		class="location-section">
+		class="location-section"
+		ng-click="locationVm.onPress({section: section})">
 		<button>{{ section }}</button>
 	</span>
 </div>

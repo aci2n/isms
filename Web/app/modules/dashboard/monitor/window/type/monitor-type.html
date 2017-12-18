@@ -17,7 +17,8 @@
 		<location
 			ng-if="monitorTypeVm.currentLocation !== 'all'"
 			sections="monitorTypeVm.data[monitorTypeVm.currentLocation]"
-			name="monitorTypeVm.currentLocation"></location>
+			name="monitorTypeVm.currentLocation"
+			on-press="monitorTypeVm.selectSection(section)"></location>
 	</div>
 	<figure>
 		<canvas
