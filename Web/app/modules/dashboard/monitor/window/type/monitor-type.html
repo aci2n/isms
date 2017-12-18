@@ -4,7 +4,7 @@
 <div
 	class="monitor-panel"
 	ng-if="monitorTypeVm.hasEnoughData()">
-	<div>
+	<div class="location-navigation">
 		<label>
 			Location:
 			<select
@@ -14,7 +14,10 @@
 			</select>
 		</label>
 
-		<location sections="monitorTypeVm.data[monitorTypeVm.currentLocation]"></location>
+		<location
+			ng-if="monitorTypeVm.currentLocation !== 'all'"
+			sections="monitorTypeVm.data[monitorTypeVm.currentLocation]"
+			name="monitorTypeVm.currentLocation"></location>
 	</div>
 	<figure>
 		<canvas

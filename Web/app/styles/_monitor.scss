@@ -6,7 +6,7 @@ monitor-type {
     
 	figure {
 		position: relative;
-		width: 50vw;
+		width: 60vw;
 		height: 50vh;
 		margin: 0;
 	}
@@ -16,4 +16,15 @@ monitor-type {
 	display: flex;
 	justify-content: space-between;
 	padding: 5%;
+	flex-grow: 1;
+}
+
+.location-navigation {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 200px;
+	
+	location {
+		margin-top: 10px;
+	}
 }

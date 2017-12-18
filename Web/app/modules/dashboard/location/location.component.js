@@ -11,7 +11,8 @@
         controller: LocationController,
         controllerAs: 'locationVm',
         bindings: {
-            sections: '<'
+            sections: '<',
+            name: '<'
         }
     };
 

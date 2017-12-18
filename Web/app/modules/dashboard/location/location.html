@@ -1,3 +1,9 @@
-<p ng-repeat="(section, points) in locationVm.sections">
-	{{ section }}
-</p>
+<h4>{{ locationVm.name }} Sections</h4>
+
+<div>
+	<span
+		ng-repeat="(section, points) in locationVm.sections"
+		class="location-section">
+		<button>{{ section }}</button>
+	</span>
+</div>
