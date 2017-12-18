@@ -13,7 +13,7 @@ import isms.sensor.Sensor;
 public class TestSimulatorSensor {
 
 	public static void main(String[] args) {
-		ExecutorService service = Executors.newFixedThreadPool(2);
+		ExecutorService service = Executors.newFixedThreadPool(10);
 
 		service.submit(() -> {
 			int mean = (int) Math.random() * 40;
@@ -32,6 +32,17 @@ public class TestSimulatorSensor {
 			int sleep = 1000;
 			Driver driver = new NormalSimulatorDriver(mean, std, sleep);
 			SensorLocation location = new SensorLocation("silo_1", 1);
+			Sensor sensor = new Sensor(SensorType.HUMIDITY, driver, new APIPublisher(), location);
+
+			sensor.start();
+		});
+		
+		service.submit(() -> {
+			int mean = (int) Math.random() * 40;
+			int std = 2;
+			int sleep = 1000;
+			Driver driver = new NormalSimulatorDriver(mean, std, sleep);
+			SensorLocation location = new SensorLocation("silo_1", 2);
 			Sensor sensor = new Sensor(SensorType.HUMIDITY, driver, new APIPublisher(), location);
 
 			sensor.start();

@@ -2,18 +2,20 @@
 	'use strict';
 
 	function ChartDataFilterFactory() {
-		function getIndexSections(index) {
-			let sections = [];
+		function getAllLocationPoints(index) {
+			let points = [];
 			
 			for (const section in index) {
 				const sectionPoints = index[section];
 				
 				if (Array.isArray(sectionPoints)) {
-					sections.push(sectionPoints);
+					points.push(...sectionPoints);
 				}
 			}
+			
+			points.sort((a, b) => a.x - b.x);
 				
-			return sections;
+			return points;
 		}
 		
 		function ChartDataFilter(data, location, section) {
@@ -26,15 +28,15 @@
 				if (Array.isArray(sectionPoints)) {
 					filtered.push(sectionPoints);
 				} else {
-					filtered = getIndexSections(locationIndex);
+					filtered.push(getAllLocationPoints(locationIndex));
 				}
 			} else {
 				for (const locationId in data) {
-					filtered.push(...getIndexSections(data[locationId]));
+					filtered.push(getAllLocationPoints(data[locationId]));
 				}
 			}
 			
-			return filtered;
+			return filtered.filter(a => a.length > 0);
 		}
 
 		return ChartDataFilter;

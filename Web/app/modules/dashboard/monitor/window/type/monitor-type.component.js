@@ -88,7 +88,12 @@
         }
 		
 		selectSection(section) {
+			if (this.currentSection === section) {
+				section = null;
+			}
+			
 			this.currentSection = section;
+			this.refreshChartData();
 		}
 		
 		hasEnoughData() {
