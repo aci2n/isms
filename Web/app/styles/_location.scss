@@ -7,11 +7,15 @@ location {
 	.location-section  {
 		width: 50%;
 		height: 100px;
-		padding: 10px;
 		box-sizing: border-box;
 		background-color: $color_porcelain;
 		display: inline-block;
-		
+		border: 10px solid transparent;
+	
+		&.location-section-highlighted {
+			border-color: $color_peter_river;
+		}
+				
 		button {
 			width: 100%;
 			height: 100%;		

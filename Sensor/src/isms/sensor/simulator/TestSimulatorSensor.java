@@ -12,40 +12,57 @@ import isms.sensor.Sensor;
 
 public class TestSimulatorSensor {
 
+	private static void startSensor(SensorType type, String locationId, int section) {
+		int mean = (int) Math.random() * 40;
+		int std = 2;
+		int sleep = 1000;
+		Driver driver = new NormalSimulatorDriver(mean, std, sleep);
+		SensorLocation location = new SensorLocation(locationId, section);
+		Sensor sensor = new Sensor(type, driver, new APIPublisher(), location);
+		sensor.start();
+	}
+
 	public static void main(String[] args) {
 		ExecutorService service = Executors.newFixedThreadPool(10);
 
 		service.submit(() -> {
-			int mean = (int) Math.random() * 40;
-			int std = 2;
-			int sleep = 1000;
-			Driver driver = new NormalSimulatorDriver(mean, std, sleep);
-			SensorLocation location = new SensorLocation("silo_2", 3);
-			Sensor sensor = new Sensor(SensorType.HUMIDITY, driver, new APIPublisher(), location);
-
-			sensor.start();
+			startSensor(SensorType.HUMIDITY, "silo_1", 1);
 		});
 
 		service.submit(() -> {
-			int mean = (int) Math.random() * 40;
-			int std = 2;
-			int sleep = 1000;
-			Driver driver = new NormalSimulatorDriver(mean, std, sleep);
-			SensorLocation location = new SensorLocation("silo_1", 1);
-			Sensor sensor = new Sensor(SensorType.HUMIDITY, driver, new APIPublisher(), location);
-
-			sensor.start();
+			startSensor(SensorType.HUMIDITY, "silo_1", 2);
 		});
 		
 		service.submit(() -> {
-			int mean = (int) Math.random() * 40;
-			int std = 2;
-			int sleep = 1000;
-			Driver driver = new NormalSimulatorDriver(mean, std, sleep);
-			SensorLocation location = new SensorLocation("silo_1", 2);
-			Sensor sensor = new Sensor(SensorType.HUMIDITY, driver, new APIPublisher(), location);
-
-			sensor.start();
+			startSensor(SensorType.HUMIDITY, "silo_1", 3);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.HUMIDITY, "silo_1", 4);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.HUMIDITY, "silo_2", 1);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.HUMIDITY, "silo_2", 2);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.HUMIDITY, "silo_2", 3);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.HUMIDITY, "silo_2", 4);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.VOLTAGE, "silo_1", 1);
+		});
+		
+		service.submit(() -> {
+			startSensor(SensorType.VOLTAGE, "silo_2", 1);
 		});
 	}
 

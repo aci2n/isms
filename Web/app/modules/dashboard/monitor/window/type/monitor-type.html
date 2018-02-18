@@ -18,6 +18,7 @@
 			ng-if="monitorTypeVm.currentLocation !== 'all'"
 			sections="monitorTypeVm.data[monitorTypeVm.currentLocation]"
 			name="monitorTypeVm.currentLocation"
+			highlighted="monitorTypeVm.currentSection"
 			on-press="monitorTypeVm.selectSection(section)"></location>
 	</div>
 	<figure>

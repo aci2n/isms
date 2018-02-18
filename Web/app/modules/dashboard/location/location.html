@@ -4,6 +4,7 @@
 	<span
 		ng-repeat="(section, points) in locationVm.sections"
 		class="location-section"
+		ng-class="{'location-section-highlighted': locationVm.isHighlighted(locationVm.highlighted, section)}"
 		ng-click="locationVm.onPress({section: section})">
 		<button>{{ section }}</button>
 	</span>

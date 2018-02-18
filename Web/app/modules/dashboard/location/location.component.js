@@ -2,7 +2,9 @@
 	'use strict';
 	
 	class LocationController {
-
+		isHighlighted(highlighted, section) {
+			return (Array.isArray(highlighted) && highlighted.indexOf(section) !== -1) || highlighted === section;
+		}
 	}
 	LocationController.$inject = [];
 
@@ -13,6 +15,7 @@
         bindings: {
             sections: '<',
             name: '<',
+            highlighted: '<',
             onPress: '&'
         }
     };
