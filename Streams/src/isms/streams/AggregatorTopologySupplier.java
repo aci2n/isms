@@ -46,6 +46,7 @@ public class AggregatorTopologySupplier extends TopologySupplier {
 			WindowedMetric windowedMetric = new WindowedMetric(windowedKey.key(), metric, windowSize,
 					windowedKey.window().start());
 			// TODO: Handle failures here to avoid losing data.
+			System.out.println("aggregator - processing record");
 			UnirestWrapper.post(Constants.API_ENDPOINT_MONITOR).body(windowedMetric).asBinaryAsync();
 		});
 

@@ -22,6 +22,7 @@ public class AlertEmmiterTopologySupplier extends TopologySupplier {
 				Alert alert = new Alert(record.getSensorId(), record.getOwnerId(), record.getType(), threshold,
 						record.getData(), record.getTime(), false);
 				// TODO: Handle failures here to avoid losing data.
+				System.out.println("alerts - processing record");
 				UnirestWrapper.post(Constants.API_ENDPOINT_ALERTS).body(alert).asBinaryAsync();
 			}
 		});
