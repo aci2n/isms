@@ -2,9 +2,19 @@ package isms.common;
 
 public class Constants {
 
-	public static final String BOOTSTRAP_SERVERS = "localhost:9092";
+	/*
+	 * I'm not even gonna pretend it's OK to have this hardcoded - I just want off this ride.
+	 * 
+	 * Remote machine 1: vps173930.vps.ovh.ca
+	 *  - Kafka I, SQL, Aggregations
+	 *  
+	 * Remote machine 2: vps173931.vps.ovh.ca
+	 *  - Kafka II, Zookeeper, Tomcat, Alerts
+	 */
+	
+	public static final String BOOTSTRAP_SERVERS = "vps173930.vps.ovh.ca:9092,vps173931.vps.ovh.ca:9092";
 	public static final String API_PREFIX = "/api/";
-	public static final String API_ENDPOINT = "http://localhost:8080" + API_PREFIX;
+	public static final String API_ENDPOINT = "http://vps173931.vps.ovh.ca:8080" + API_PREFIX;
 	public static final String API_ENDPOINT_RECORDS = "records";
 	public static final String API_ENDPOINT_MONITOR = "monitor";
 	public static final String API_ENDPOINT_ALERTS = "alert";
