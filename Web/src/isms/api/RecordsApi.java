@@ -1,9 +1,13 @@
 package isms.api;
 
+import java.util.concurrent.ExecutionException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 import isms.common.Constants;
 import isms.models.SensorRecord;
@@ -22,8 +26,14 @@ public class RecordsApi extends BaseApi {
 	}
 
 	@POST
-	public void send(SensorRecord record) {
+	public long send(SensorRecord record) {
 		producer.send(record);
+		return record.getTime();
 	}
 
+	@POST
+	@Path("/sync")
+	public long sendSync(SensorRecord record) throws InterruptedException, ExecutionException {
+		return producer.sendSync(record).timestamp();
+	}
 }
