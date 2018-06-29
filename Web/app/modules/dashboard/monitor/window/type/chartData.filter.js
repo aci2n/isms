@@ -1,7 +1,32 @@
 (function () {
 	'use strict';
-
+	
 	function ChartDataFilterFactory() {
+		function average(array) {
+			return array.reduce((a, b) => a + b, 0) / array.length;
+		}
+		
+		function groupByTimestamp(points) {
+			const map = {};
+			
+			for (const point of points) {
+				if (!map[point.x]) {
+					map[point.x] = [];
+				}
+				
+				map[point.x].push(point.y);
+			}
+			
+			return Object.keys(map).reduce((accum, timestamp) => {
+				accum.push({
+					x: timestamp,
+					y: average(map[timestamp])
+				});
+				
+				return accum;
+			}, []);
+		}
+		
 		function getAllLocationPoints(index) {
 			let points = [];
 			
@@ -13,6 +38,7 @@
 				}
 			}
 			
+			points = groupByTimestamp(points);
 			points.sort((a, b) => a.x - b.x);
 				
 			return points;
